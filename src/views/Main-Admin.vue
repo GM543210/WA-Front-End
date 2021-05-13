@@ -1,10 +1,10 @@
 <template>
  <div><Header />
   <div class="jumbotron">
-    <h1 class="display-4">Hello, Marin!</h1>
-    <p class="lead">Ovdje stavi selection ADMIN and USER</p>
+    <h1 class="display-4">Hello, Admin!</h1>
+    <p class="lead">Ovdje ce biti odabir za Admina zeli li Upravljat Salterom ili Ustanovom.</p>
     <hr class="my-4">
-    <p>Please pick an option.</p>
+    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
     <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
   </div>
   <Footer />
@@ -17,7 +17,7 @@ import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 
 export default {
-  name: 'home',
+  name: 'main-admin',
   components: {
     HelloWorld,
     Header,
