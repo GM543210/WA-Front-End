@@ -13,7 +13,7 @@
         <div class="btn btn-outline my-2 my-sm-0 mr-2"><router-link to="/">Home</router-link></div>
         <div class="btn btn-outline my-2 my-sm-0 mr-2"><router-link to="/main-user">Main-User</router-link></div>
         <div class="btn btn-outline my-2 my-sm-0 mr-2"><router-link to="/login">Login</router-link></div>
-        <!-- <div class="btn btn-outline my-2 my-sm-0 mr-2"><router-link to="/signup">Signup</router-link></div> -->
+        <div class="btn btn-outline my-2 my-sm-0 mr-2"><router-link to="/signup">Signup</router-link></div>
         <div class="btn btn-outline my-2 my-sm-0 mr-2"><router-link to="/enter-q">Enter Q</router-link></div>
         <div class="btn btn-outline my-2 my-sm-0 mr-2"><router-link to="/queued">Queued</router-link></div>
         <div class="btn btn-outline my-2 my-sm-0 mr-2"><router-link to="/left-q">Left Q</router-link></div>

@@ -39,7 +39,7 @@ export default {
        return {
            email: '',
            password: '',
-           kriviUser: '',
+          // kriviUser: '',
            store
        }
    },
@@ -48,7 +48,7 @@ export default {
         console.log('logging in user -> ' + this.email)
 
         firebase.auth()
-           .createUserWithEmailAndPassword(this.email, this.password)
+           .signInWithEmailAndPassword(this.email, this.password)
            .then((result) => {
                
                console.log('Uspješna prijava', result);
@@ -57,7 +57,7 @@ export default {
            })
 	   .catch((e) => {
                console.error('greska', e);
-               this.kriviUser=true;
+               //this.kriviUser=true;
            })
         //return kriviUser;
         
