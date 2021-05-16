@@ -39,7 +39,6 @@ export default {
             store,
             Institutions,
             imageReference1: null,
-            imageReference2: null,
             institution_name: '',
             branch_office_city: '',
             institution_adress: '',
