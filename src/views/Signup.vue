@@ -79,6 +79,28 @@ export default {
         }
     },
   methods: {
+   saveInstitution(){// 1. Sprema novu instituciju, ako vec postoji provjerava podatke
+            let user = firebase.auth().currentUser;
+            firebase
+            .firestore()
+            .collection('INSTITUTIONS')
+            .doc(this.institution_name) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za tu inst
+            .set({
+                Name : this.institution_name,
+                InstitutionBranchCity : this.branch_office_city,
+                InstitutionAdress : this.institution_adress,
+                InstitutionWH: this.institution_wh,
+                AuthorizedAdmins: firebase.firestore.FieldValue.arrayUnion(user.uid)
+                },{merge:true})
+                .then(() =>{
+                    alert(`Product ${this.productname} added`)
+            })
+            .catch((error) =>{
+              console.log("Error in saving product", error)
+            });
+     
+
+   },
    signup() {
         console.log('logging in user -> ' + this.email)
 
@@ -94,11 +116,13 @@ export default {
                InstitutionAdress : this.institution_adress,
                InstitutionWH: this.institution_wh,
                Password : this.password,
-               TypeOfUser : Admin 
+               TypeOfUser : 'Admin'
                // console.log('Uspješna Registracija');
                 })
                console.log('Uspješna prijava');
-              //  this.$router.replace({name: "main-admin"})
+               this.saveInstitution();
+              //  alert('Uspjesno stvorena institucija')
+               this.$router.replace({name: "main-admin"})
            })
 	        .catch(function(error) {
                console.error('greska', error);
