@@ -113,8 +113,6 @@ export default {
                Email : this.email,
                IntitutionName : this.institution_name,
                InstitutionBranchCity : this.branch_office_city,
-               InstitutionAdress : this.institution_adress,
-               InstitutionWH: this.institution_wh,
                Password : this.password,
                TypeOfUser : 'Admin'
                // console.log('Uspješna Registracija');
