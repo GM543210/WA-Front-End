@@ -7,6 +7,14 @@
     <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
     <a class="btn btn-primary btn-lg" href="#" role="button" @click="addWindow">Learn more</a>
   </div>
+   <!-- 
+    <div class="col-4 PrListing">
+       <div class="centered scroll">
+        <Windows v-for="window in WNDW" :key="window.Caption" :window="window" @product-selected="setSelectedProduct" />
+       </div>
+        <button type="button" class="button addbtn showBtn" @click="showMore"><span>Show more windows</span></button>
+     </div>
+   -->
   <Footer />
  </div>
 </template>
@@ -15,14 +23,14 @@
 import HelloWorld from '@/components/HelloWorld.vue'
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
-import Institutions from '@/components/Institutions.vue';
+import Windows from '@/components/Windows.vue';
 import store from '@/store';
 import { firebase } from '@/firebase';
 
 
 // let uid = firebase.auth().currentUser.uid; //pravi UID, za sada ne treba
 let uid = store.UID; //za testiranje
-// let i=0;
+let window_counter = 0;
 var getOptions = {
     source: 'default'
 };
@@ -53,6 +61,8 @@ export default {
       old_number_of_windows:'',
       number_of_windows: '',
       temp_number_of_windows: '',
+      WNDW:[]
+
     }
   },
   methods:{
@@ -107,6 +117,27 @@ export default {
       this.temp_institution_wh = this.old_wh;
       this.temp_number_of_windows = this.old_number_of_windows
     },
+    getAllWindows(){
+             
+             firebase.firestore()
+            .collection('WINDOWS')
+            .get()
+            .then((query) => {
+                query.forEach((doc) => {
+
+                    const data = doc.data();
+                      if(data.AuthorizedAdmins==uid){
+                        this.WNDW.push({
+                            'Caption': data.Name,
+                            'ID': data.WindowID
+                        })
+                        window_counter++;
+                      }
+                    console.log(data)
+                });
+                console.log('This Institution has '+ window_counter + ' windows.')
+            });
+    },
     saveInfo(){ //sprema novi info u Firestore
         
         firebase
@@ -158,6 +189,7 @@ export default {
   mounted() {
         this.getOldInfo();
         this.getCurrentInfo();
+        this.getAllWindows();
   },
 
 }
