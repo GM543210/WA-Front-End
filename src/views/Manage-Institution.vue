@@ -10,7 +10,7 @@
    <!-- 
     <div class="col-4 PrListing">
        <div class="centered scroll">
-        <Windows v-for="window in WNDW" :key="window.Caption" :window="window" @product-selected="setSelectedProduct" />
+        <Windows v-for="window in WNDW" :key="window.Caption" :window="window" @window-selected="setSelectedWindow" />
        </div>
         <button type="button" class="button addbtn showBtn" @click="showMore"><span>Show more windows</span></button>
      </div>
@@ -61,6 +61,10 @@ export default {
       old_number_of_windows:'',
       number_of_windows: '',
       temp_number_of_windows: '',
+      selectedWindow: {
+         'Caption': "",
+         'ID':""
+      },
       WNDW:[]
 
     }
@@ -143,7 +147,7 @@ export default {
         firebase
         .firestore()
         .collection('INSTITUTIONS')
-        .doc(this.institution_name) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za taj product
+        .doc(this.institution_name) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za tu ustanovu
         .set({
             Name : this.institution_name,
             InstitutionBranchCity : this.branch_office_city,
@@ -184,6 +188,10 @@ export default {
             .catch((error) =>{
               console.log("Error in saving institution", error)
             });
+      },
+      setSelectedWindow(){ //ovo se vjerojatno moze direkt iz
+        store.selectedWindow.Caption = this.selectedWindow.Caption;
+        store.selectedWindow.ID = this.selectedWindow.ID;
       },
   },
   mounted() {

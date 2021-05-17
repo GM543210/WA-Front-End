@@ -11,6 +11,16 @@ export default {
     branch_office_city:'',
     institution_adress:'',
     institution_wh:'',
-    i:0
+    i:0,
+    selectedInstitution:{
+        Caption: "",
+        Adress:"",
+        WorkingHours:"",
+        City:""
+    },
+    selectedWindow:{
+        Caption: "",
+        ID:""
+    },
 
 }

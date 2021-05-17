@@ -10,7 +10,7 @@
   <!-- 
     <div class="col-4 PrListing">
        <div class="centered scroll">
-        <Institutions v-for="institution in INST" :key="institution.Caption" :institution="institution" @product-selected="setSelectedProduct" />
+        <Institutions v-for="institution in INST" :key="institution.Caption" :institution="institution" @institution-selected="setSelectedInstitution" />
        </div>
         <button type="button" class="button addbtn showBtn" @click="showMore"><span>Show more institutions</span></button>
      </div>
@@ -43,6 +43,12 @@ export default {
             branch_office_city: '',
             institution_adress: '',
             institution_wh: '',
+            selectedInstitution: {
+                'Caption': "",
+                'Adress':"",
+                'WorkingHours': "",
+                'City': ""
+            },
             INST:[],
             
       }
@@ -69,6 +75,12 @@ export default {
                     console.log(data)
                 });
             });
+    },
+    setSelectedInstitution(){
+      store.selectedInstitution.Caption = this.selectedInstitution.Caption;
+      store.selectedInstitution.Adress = this.selectedInstitution.Adress;
+      store.selectedInstitution.WorkingHours = this.selectedInstitution.WorkingHours;
+      store.selectedInstitution.City = this.selectedInstitution.City;
     }
   }
 }
