@@ -165,7 +165,7 @@ export default {
       uniqueID() {
         return Math.floor(Math.random() * Date.now())
       },
-      addWindow(){// 1. Sprema novu instituciju, ako vec postoji provjerava podatke
+    addWindow(){// 1. Sprema novu instituciju, ako vec postoji provjerava podatke
             // let user = firebase.auth().currentUser;
             let rid = this.uniqueID();
             store.i++;
@@ -192,7 +192,7 @@ export default {
       setSelectedWindow(){ //ovo se vjerojatno moze direkt iz
         store.selectedWindow.Caption = this.selectedWindow.Caption;
         store.selectedWindow.ID = this.selectedWindow.ID;
-      },
+    },
   },
   mounted() {
         this.getOldInfo();

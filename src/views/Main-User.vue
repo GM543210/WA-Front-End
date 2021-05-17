@@ -7,14 +7,13 @@
     <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
     <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
   </div>
-  <!-- 
+  
     <div class="col-4 PrListing">
        <div class="centered scroll">
         <Institutions v-for="institution in INST" :key="institution.Caption" :institution="institution" @institution-selected="setSelectedInstitution" />
        </div>
-        <button type="button" class="button addbtn showBtn" @click="showMore"><span>Show more institutions</span></button>
      </div>
-   -->
+  
   <Footer />
  </div>
 </template>

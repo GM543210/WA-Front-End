@@ -22,5 +22,16 @@ export default {
         Caption: "",
         ID:""
     },
+    PQ:{
+        ID:"",
+        PlaceInQ:""
+    },
+    Queue:{
+        WindowID:'',
+        PeopleInQ:33,
+        BeingServed:'#173',
+        NextInQ:'#174',
+
+    }
 
 }
