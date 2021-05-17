@@ -15,6 +15,9 @@
 import HelloWorld from '@/components/HelloWorld.vue'
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
+import Windows from '@/components/Windows.vue';
+import store from '@/store';
+import { firebase } from '@/firebase';
 
 export default {
   name: 'manage-window',
@@ -22,6 +25,15 @@ export default {
     HelloWorld,
     Header,
     Footer
+  },
+  methods:{
+    addQ(){// Dodaje novi red za odabrani Salter/Window
+            
+      store.Queue.WindowID = store.selectedWindow.ID;
+    },
+  },
+  computed(){
+    this.addQ();
   }
 }
 </script>
