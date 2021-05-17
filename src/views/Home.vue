@@ -5,11 +5,11 @@
     <p class="lead">Ovdje stavi selection ADMIN and USER</p>
     <hr class="my-4">
     <p>Please pick an option.</p>
-    <router-link to="/login">
+    <router-link to="/main-user">
       <a class="btn btn-primary btn-lg" href="#" role="button" @click="IamPQ">Get in Queue!</a> 
     </router-link>
-    <router-link to="/login">
-      <a class="btn btn-primary btn-lg mov" role="button" @click="IamAdmin">Log in as ADMIN</a>
+    <router-link to="/main-admin">
+      <a class="btn btn-primary btn-lg mov" role="button" @click="IamAdmin">Enter as ADMIN</a>
     </router-link>
   </div>
   <Footer />
@@ -50,6 +50,6 @@ export default {
         IamAdmin() {
             store.userType='Admin';
         }
-    }
+    },
 }
 </script>

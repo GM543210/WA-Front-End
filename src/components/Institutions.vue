@@ -22,8 +22,8 @@ export default {
     name: 'Institutions',
     props: ['institution',],
     methods: {
-        onInstitutionSelected() { // unknown method god knows what this does
-            this.$emit('institution-selected', this.institution);
+        onInstitutionSelected() { 
+            this.$router.push({name: "enter-q"});
         },
     },
 };
