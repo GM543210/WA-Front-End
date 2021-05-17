@@ -20,7 +20,8 @@ import store from '@/store';
 import { firebase } from '@/firebase';
 
 
-let uid = firebase.auth().currentUser.uid;
+// let uid = firebase.auth().currentUser.uid; //pravi UID, za sada ne treba
+let uid = store.UID; //za testiranje
 var getOptions = {
     source: 'default'
 };

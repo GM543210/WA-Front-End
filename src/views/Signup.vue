@@ -93,7 +93,7 @@ export default {
                 AuthorizedAdmins: firebase.firestore.FieldValue.arrayUnion(user.uid)
                 },{merge:true})
                 .then(() =>{
-                    alert(`Product ${this.institution_name} added`)
+                    alert(`Institution ${this.institution_name} added`)
             })
             .catch((error) =>{
               console.log("Error in saving product", error)
@@ -128,7 +128,7 @@ export default {
            })
         //return kriviUser;
         
-       }
+   }
   }
 }
 </script>
