@@ -42,7 +42,8 @@ export default {
                 InstitutionBranchCity : store.branch_office_city,
                 InstitutionAdress : store.institution_adress,
                 InstitutionWH:  store.institution_wh,
-                AuthorizedAdmins: firebase.firestore.FieldValue.arrayUnion(store.UID)
+                AuthorizedAdmins: firebase.firestore.FieldValue.arrayUnion(store.UID),
+                NumberOfWindows: []
                 },{merge:true})
                 .then(() =>{
                     // alert(`Institution ${store.institution_name} added`)

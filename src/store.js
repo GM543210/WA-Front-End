@@ -11,5 +11,6 @@ export default {
     branch_office_city:'',
     institution_adress:'',
     institution_wh:'',
+    i:0
 
 }
