@@ -12,8 +12,8 @@
           <!-- <li>Todo stranica</li> -->
         </ul>
         <img class="resized" alt="user-settings" src="@/assets/user.png">
-        <div class="btn btn-outline my-2 my-sm-0 mr-2">John Doe</div>
-        <div class="btn btn-outline my-2 my-sm-0 mr-2" @click="backToHome">Logout</div>
+        <div class="btn btn-outline my-2 my-sm-0 mr-2 white-txt">John Doe</div>
+        <div class="btn btn-outline my-2 my-sm-0 mr-2 white-txt" @click="backToHome">Logout</div>
 
         <!-- <router-link v-if="!authenticated" class="btn btn-info my-2 my-sm-0 mr-2" to="/login">Login</router-link>
         <span v-if="authenticated">
@@ -29,12 +29,15 @@
 </template>
 
 <style lang='scss'>
+#app.span {
+  color: white;
+}
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #5396E9;
+  width: 100%;
 }
 
 #nav {
@@ -42,10 +45,10 @@
 
   a {
     font-weight: bold;
-    color: #2c3e50;
+    color: white;
 
     &.router-link-exact-active {
-      color: #42b983;
+      color: white;
     }
   }
 }
@@ -56,7 +59,16 @@ img.resized { /*resized the user settings and cart icons*/
 }
 .navbar-custom{
   background-color: #5396E9;
+  width: 100%!important;
+  color: white;
   
+}
+.navbar-brand{
+  color: white!important;
+}
+
+.white-txt{
+  color: white!important;
 }
 </style>
 

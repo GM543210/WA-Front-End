@@ -1,15 +1,123 @@
 <template>
- <div><Header />
-  <div class="jumbotron">
-    <h1 class="display-4">Hello, Admin!</h1>
-    <p class="lead">Ovdje smo unutar reda i tu ce bit opcija za Admina za prebacit na sljedecu osobu u redu.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <a class="btn btn-primary btn-lg" href="#" role="button" @click="Next">Learn more</a>
-  </div>
+ <div>
+  <Header />
+  <div class="container main">
+      <div class="row">
+
+        <div class="option-wrapper col-sm-3">
+          <p class="normal-text">Ljudi u redu</p>
+          <div class="counter">
+            <h3 class="header-3">28</h3>
+          </div>
+          
+
+        </div>
+
+         <div class="option-wrapper col-sm-4">
+          <p class="text-big">Trenutni broj</p>
+          <div class="counter-big">
+            <h3 class="header-3-big">173</h3>
+          </div>
+          <router-link class="button" to="#">SLJEDEĆI</router-link>
+
+        </div>
+
+        <div class="option-wrapper col-sm-3">
+          <p class="normal-text">Sljedeći broj</p>
+          <div class="counter">
+            <h3 class="header-3">174</h3>
+          </div>
+
+        </div>
+
+      </div>
+    </div>
   <!-- <Footer /> -->
  </div>
 </template>
+
+<style scoped>
+.main-header {
+  color:#5396E9;
+  font-size: 5vw;
+  text-align: center;
+}
+
+.main {
+  margin-top: 10%;
+}
+
+.row {
+  margin-left: 10%;
+}
+
+.option-wrapper{
+  text-align: center;
+  width:50%;
+  position: relative;
+}
+
+.hp-icon {
+  width: 50%;
+}
+
+.button {
+  background-color: #5396E9;
+  width: 200px;
+  border-radius: 25px;
+  color: white;
+  padding: 5px 15px;
+  text-align: center;
+  display: block;
+  font-size: 25px;
+  position: absolute;
+  left: 28.5%;
+}
+
+.header-3 {
+  color:#5396E9;
+  font-size: 3vw;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.header-3-big {
+  color:#5396E9;
+  font-size: 3vw;
+  text-align: center;
+  margin-top: 37px;
+}
+
+.counter {
+  border-radius: 50%;
+  border: 5px solid #5396E9;
+  width:100px;
+  height: 100px;
+  margin-left: 32%;
+  margin-bottom:5%;
+}
+
+.counter-big {
+  border-radius: 50%;
+  border: 5px solid #5396E9;
+  width:150px;
+  height: 150px;
+  margin-left: 35%;
+  margin-bottom:5%;
+}
+
+.normal-text {
+  color:#5396E9;
+  font-size: 1.8vw;
+  margin-left: 10%;
+}
+
+.text-big {
+  color:#5396E9;
+  font-size: 2.5vw;
+  margin-left: 16.5%;
+}
+</style>
 
 <script>
 import HelloWorld from '@/components/HelloWorld.vue'

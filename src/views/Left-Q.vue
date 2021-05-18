@@ -1,7 +1,7 @@
 <template>
  <div><Header />
   <H1 class="main-header">NAPUSTILI STE RED!</H1>
-  <Footer />
+  <!-- <Footer /> -->
  </div>
 </template>
 
