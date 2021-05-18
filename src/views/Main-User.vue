@@ -1,22 +1,102 @@
 <template>
- <div><Header />
-  <div class="jumbotron">
-    <h1 class="display-4">Hello, User!</h1>
-    <p class="lead">Ovdje ce biti izlistane sve ustanove.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+ <div>
+  <Header />
+
+<input class="search" type="text" placeholder="Pretraži ustanovu...">
+
+<div class="flex-container">
+
+  <div class="row prvi ustanove">
+    <div class="col">
+      <img style="width: 50%;" src="@/assets/circle-temp.png">
+      <router-link class="button" to="/enter-q">USTANOVA</router-link>
+    </div>
+    <div class="col">
+      <img style="width: 50%;" src="@/assets/circle-temp.png">
+      <router-link class="button" to="/enter-q">USTANOVA</router-link>
+    </div>
+    <div class="col">
+      <img style="width: 50%;" src="@/assets/circle-temp.png">
+      <router-link class="button" to="/enter-q">USTANOVA</router-link>
+    </div>
+    <div class="col">
+      <img style="width: 50%;" src="@/assets/circle-temp.png">
+      <router-link class="button" to="/enter-q">USTANOVA</router-link>
+    </div>
+    <div class="col">
+      <img style="width: 50%;" src="@/assets/circle-temp.png">
+      <router-link class="button" to="/enter-q">USTANOVA</router-link>
+    </div>
   </div>
-  
+
+    <div class="row ustanove">
+        <div class="col">
+      <img style="width: 50%;" src="@/assets/circle-temp.png">
+      <router-link class="button" to="/enter-q">USTANOVA</router-link>
+    </div>
+    <div class="col">
+      <img style="width: 50%;" src="@/assets/circle-temp.png">
+      <router-link class="button" to="/enter-q">USTANOVA</router-link>
+    </div>
+    <div class="col">
+      <img style="width: 50%;" src="@/assets/circle-temp.png">
+      <router-link class="button" to="/enter-q">USTANOVA</router-link>
+    </div>
+    <div class="col">
+      <img style="width: 50%;" src="@/assets/circle-temp.png">
+      <router-link class="button" to="/enter-q">USTANOVA</router-link>
+    </div>
+    <div class="col">
+      <img style="width: 50%;" src="@/assets/circle-temp.png">
+      <router-link class="button" to="/enter-q">USTANOVA</router-link>
+    </div>
+  </div>
+
+  </div>
+  <!-- 
     <div class="col-4 PrListing">
        <div class="centered scroll">
-        <Institutions v-for="institution in INST" :key="institution.Caption" :institution="institution" @institution-selected="setSelectedInstitution" />
+        <Institutions v-for="institution in INST" :key="institution.Caption" :institution="institution" @product-selected="setSelectedProduct" />
        </div>
+        <button type="button" class="button addbtn showBtn" @click="showMore"><span>Show more institutions</span></button>
      </div>
-  
-  <Footer />
+   -->
+  <!-- <Footer /> -->
  </div>
 </template>
+
+<style scoped>
+
+.search {
+text-align: center;
+width: 100%;
+border-radius: 25px;
+}
+
+.prvi {
+  margin-top: 100px;
+}
+
+.ustanove {
+  margin-bottom: 100px;
+  text-align: center;
+}
+
+.button {
+  background-color: #5396E9; /* Green */
+  width: 100px;
+  border-radius: 25px;
+  color: white;
+  padding: 6px 8px;
+  text-align: center;
+  display: block;
+  font-size: 15px;
+  position: absolute;
+  margin-top: 15px;
+  left:28%;
+}
+
+</style>
 
 <script>
 import HelloWorld from '@/components/HelloWorld.vue'

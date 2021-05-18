@@ -1,16 +1,70 @@
 <template>
  <div><Header />
-  <div class="jumbotron">
-    <h1 class="display-4">Hello, User!</h1>
-    <p class="lead">Ovdje ce biti prikazan broj u redu i poziv na ulaz u red.</p>
-     <!-- <p class="lead">{{store.selectedInstitution.Caption}}</p> -->
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <a class="btn btn-primary btn-lg" href="#" role="button" @click="getInLine">Learn more</a>
-  </div>
-  <Footer />
+
+<H1 class="main-header">IME USTANOVE</H1>
+
+<h2 class="header-2">Ljudi u redu:</h2>
+
+<div class="counter">
+<h3 class="header-3">33</h3>
+<router-link class="button" to="/queued">STANI U RED</router-link>
+</div>
+
+  <!-- <Footer /> -->
  </div>
 </template>
+
+<style scoped>
+
+.main-header {
+  color:#5396E9;
+  font-size: 5vw;
+  text-align: center;
+}
+
+.centered {
+  text-align: center;
+}
+
+.header-2 {
+  color:#5396E9;
+  font-size: 3vw;
+  text-align: center;
+  margin-top: 10%;
+  margin-bottom: 5%;
+}
+
+.header-3 {
+  color:#5396E9;
+  font-size: 3vw;
+  text-align: center;
+  margin-top: 15px;
+}
+
+.counter {
+  border-radius: 50%;
+  border: 5px solid #5396E9;
+  width:100px;
+  height: 100px;
+  margin-left: 46%;
+  margin-bottom:20%
+}
+
+.button {
+  background-color: #5396E9; /* Green */
+  width: 200px;
+  border-radius: 25px;
+  color: white;
+  padding: 5px 15px;
+  text-align: center;
+  display: block;
+  font-size: 25px;
+  position: absolute;
+  left: 41.5%;
+  margin-top: 70px;
+}
+
+</style>
 
 <script>
 import HelloWorld from '@/components/HelloWorld.vue'

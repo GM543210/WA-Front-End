@@ -15,7 +15,7 @@
         <button type="button" class="button addbtn showBtn" @click="showMore"><span>Show more windows</span></button>
      </div>
    -->
-  <Footer />
+  <!-- <Footer /> -->
  </div>
 </template>
 
