@@ -3,7 +3,7 @@
 
 <H1 class="main-header">USPJEŠNO STE ZATVORILI ŠALTER!</H1>
 
-  <Footer />
+  <!-- <Footer /> -->
  </div>
 </template>
 
