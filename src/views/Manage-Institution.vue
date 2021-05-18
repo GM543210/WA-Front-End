@@ -1,12 +1,40 @@
 <template>
  <div><Header />
-  <div class="jumbotron">
-    <h1 class="display-4">Hello, Admin!</h1>
-    <p class="lead">Ovdje smo unutar institucije i tu ce bit opcije za Admina kojima moze mijenjat info ustanove ili dodat saltere.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <a class="btn btn-primary btn-lg" href="#" role="button" @click="addWindow">Learn more</a>
+
+ <div class="container-flex">
+<div class="row">
+
+ <form class="col-sm-4">
+
+  <div class="form-group">
+    <label for="ImeUstanove">Ime</label>
+    <input type="text" class="form-control" id="ImeUstanove">
   </div>
+
+  <div class="form-group">
+    <label for="RadnoVrijeme">Radno Vrijeme</label>
+    <input type="text" class="form-control" id="RadnoVrijeme">
+  </div>
+
+<div class="form-group">
+    <label for="ProsjecnoVrijemeCekanja">Prosječno vrijeme čekanja</label>
+    <input type="text" class="form-control" id="ProsjecnoVrijemeCekanja">
+  </div>
+
+
+  <button type="submit" class="btn btn-primary">Spremi</button>
+</form>
+
+<div class="col-sm-2">
+</div>
+
+<div class="col-sm-6">
+  <h2 class="header-3-big">Šalteri</h2>
+  <img class="plus" src="@/assets/plus.png">
+</div>
+
+</div>
+ </div>
    <!-- 
     <div class="col-4 PrListing">
        <div class="centered scroll">
@@ -18,6 +46,33 @@
   <!-- <Footer /> -->
  </div>
 </template>
+
+<style scoped>
+
+
+.form-group input {
+  border-radius: 50px;
+  border-color: #5396E9;
+}
+
+.form-group label {
+  color: #5396E9;
+  font-weight: bold;
+}
+
+.header-3-big {
+  color:#5396E9;
+  font-size: 3vw;
+  text-align: center;
+  margin-top: 37px;
+}
+
+.plus {
+  width: 50px;
+  margin-left: 245px;
+}
+
+</style>
 
 <script>
 import HelloWorld from '@/components/HelloWorld.vue'
