@@ -19,35 +19,6 @@ import Windows from '@/components/Windows.vue';
 import store from '@/store';
 import { firebase } from '@/firebase';
 
-class Queue{
-  constructor(){
-    this.people = {};
-    this.headIndex = 0;
-    this.tailIndex = 0;
-  }
-
-  enqueue(PersonID){
-    this.people[this.tailIndex] = PersonID;
-    this.tailIndex++;
-  }
-
-  dequeue(){
-    const PersonID = this.people[this.headIndex];
-    delete this.people[this.headIndex];
-    this.headIndex++;
-    return PersonID;
-  }
-
-  peek(){
-    return this.people[this.headIndex];
-  }
-
-  get length(){
-    return this.tailIndex - this.headIndex;
-  }
-}
-const adminQ = new Queue();
-
 export default {
   name: 'manage-window',
   components: {
@@ -65,16 +36,16 @@ export default {
       let test_counter
       for(test_counter=0;test_counter<32;test_counter++){//prewritten dio, izmisljen red za testiranje koji pocinje od 32. osobe
         let identificationNum=this.uniqueID();
-        adminQ.enqueue(identificationNum)
+        // adminQ.enqueue(identificationNum)
 
         store.PQ.ID[test_counter] = identificationNum;
         store.PQ.PlaceInQ[test_counter] = test_counter+1;
       }
       // alert(adminQ.peek())
       //prewritten podatci o trenutnom stanju reda
-      store.Queue.PeopleInQ = store.PQ.PlaceInQ.length;
-      store.Queue.BeingServed = '#' + store.PQ.PlaceInQ[16];
-      store.Queue.NextInQ = '#' + store.PQ.PlaceInQ[17];
+      store.Queue.PeopleInQ = store.PQ.PlaceInQ.length-17;
+      store.Queue.BeingServed = store.PQ.PlaceInQ[16];
+      store.Queue.NextInQ = store.PQ.PlaceInQ[17];
 
       // alert('Trenutno je ' + store.Queue.PeopleInQ + ' ljudi u redu')
       // alert('Trenutno je ' + store.Queue.BeingServed + ' na redu')
