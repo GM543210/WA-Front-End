@@ -15,7 +15,7 @@ export default {
   methods: {
     logout() {
       store.authenticated = false
-    }
+    },
   }
 }
 </script>
