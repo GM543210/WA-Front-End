@@ -1,15 +1,59 @@
 <template>
  <div><Header />
-  <div class="jumbotron">
-    <h1 class="display-4">Hello, Admin!</h1>
-    <p class="lead">Ovdje smo unutar saltera i tu ce bit odabir za Admina zeli li Upravljat Redom ili Zatvoriti ga.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+
+  <div class="container main">
+    <div class="row">
+
+      <div class="option-wrapper col-sm-6">
+        <img class ="hp-icon" src="@/assets/upravljaj-redom.png">
+        <router-link class="button" to="/manage-window">UPRAVLJAJ REDOM</router-link>
+      </div>
+
+      <div class="option-wrapper col-sm-6">
+        <img class ="hp-icon" src="@/assets/zatvori-salter.png">
+        <router-link class="button" to="/window-closed">ZATVORI ŠALTER</router-link>
+      </div>
+
+    </div>
   </div>
-  <Footer />
+
+  <!-- <Footer /> -->
  </div>
 </template>
+
+<style scoped>
+.main {
+  margin-top: 10%;
+}
+
+.row {
+  margin-left: 10%;
+}
+
+.option-wrapper{
+  text-align: center;
+  width:50%;
+  position: relative;
+}
+
+.hp-icon {
+  width: 50%;
+}
+
+.button {
+  background-color: #5396E9; /* Green */
+  width: 200px;
+  border-radius: 25px;
+  color: white;
+  padding: 5px 15px;
+  text-align: center;
+  display: block;
+  font-size: 25px;
+  position: absolute;
+  left: 29%;
+  margin-top: 15px;
+}
+</style>
 
 <script>
 import HelloWorld from '@/components/HelloWorld.vue'

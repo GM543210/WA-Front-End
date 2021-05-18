@@ -1,15 +1,20 @@
 <template>
  <div><Header />
-  <div class="jumbotron">
-    <h1 class="display-4">Bye, User!</h1>
-    <p class="lead">Ovdje ce biti prikazana poruka da je uspjesno napusten red.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-  </div>
+  <H1 class="main-header">NAPUSTILI STE RED!</H1>
   <Footer />
  </div>
 </template>
+
+<style scoped>
+
+.main-header {
+  color:#5396E9;
+  font-size: 5vw;
+  text-align: center;
+  margin-top: 20%;
+}
+
+</style>
 
 <script>
 import HelloWorld from '@/components/HelloWorld.vue'
@@ -22,6 +27,10 @@ export default {
     HelloWorld,
     Header,
     Footer
-  }
+  },
+  mounted(){
+        // const self = this;
+        setTimeout( () => this.$router.push({name: 'main-user'}), 5000);
+    }
 }
 </script>

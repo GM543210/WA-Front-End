@@ -37,7 +37,8 @@
 </template>
 
 <style lang='scss'>
-#footer {
+.footer {
+  margin-top: 150px;
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

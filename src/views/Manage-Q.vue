@@ -7,7 +7,7 @@
     <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
     <a class="btn btn-primary btn-lg" href="#" role="button" @click="Next">Learn more</a>
   </div>
-  <Footer />
+  <!-- <Footer /> -->
  </div>
 </template>
 
@@ -69,9 +69,9 @@ export default {
         this.current=store.Queue.BeingServed
         this.next=store.Queue.NextInQ
         this.total=store.Queue.PeopleInQ
-        alert('Trenutno je ' + this.total + ' ljudi u redu')
-        alert('Trenutno je #' + this.current + ' na redu')
-        alert('Sljedeci je #' + this.next + ' na redu')
+        // alert('Trenutno je ' + this.total + ' ljudi u redu')
+        // alert('Trenutno je #' + this.current + ' na redu')
+        // alert('Sljedeci je #' + this.next + ' na redu')
 
     },
     Next(){// Mice osobu iz reda i sluzi novu

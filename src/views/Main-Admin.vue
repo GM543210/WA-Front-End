@@ -1,15 +1,59 @@
 <template>
  <div><Header />
-  <div class="jumbotron">
-    <h1 class="display-4">Hello, Admin!</h1>
-    <p class="lead">Ovdje ce biti odabir za Admina zeli li Upravljat Salterom ili Ustanovom.</p>
-    <hr class="my-4">
-    <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+
+  <div class="container main">
+    <div class="row">
+
+      <div class="option-wrapper col-sm-6">
+        <img class ="hp-icon" src="@/assets/upravljaj-redom.png">
+        <router-link class="button" to="/manage-q">UPRAVLJAJ ŠALTEROM</router-link>
+      </div>
+
+      <div class="option-wrapper col-sm-6">
+        <img class ="hp-icon" src="@/assets/upravljaj-ustanovom.png">
+        <router-link class="button" to="/manage-institution">UPRAVLJAJ USTANOVOM</router-link>
+      </div>
+
+    </div>
   </div>
-  <Footer />
+
+  <!-- <Footer /> -->
  </div>
 </template>
+
+<style scoped>
+.main {
+  margin-top: 10%;
+}
+
+.row {
+  margin-left: 10%;
+}
+
+.option-wrapper{
+  text-align: center;
+  width:50%;
+  position: relative;
+}
+
+.hp-icon {
+  width: 50%;
+}
+
+.button {
+  background-color: #5396E9; /* Green */
+  width: 200px;
+  border-radius: 25px;
+  color: white;
+  padding: 5px 15px;
+  text-align: center;
+  display: block;
+  font-size: 25px;
+  position: absolute;
+  left: 29%;
+  margin-top: 15px;
+}
+</style>
 
 <script>
 import HelloWorld from '@/components/HelloWorld.vue'

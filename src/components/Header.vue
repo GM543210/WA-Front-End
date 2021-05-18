@@ -1,7 +1,7 @@
 <template>
     <div id="app">
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light mb-5">
+    <nav class="navbar navbar-expand-lg navbar-light mb-5 navbar-custom">
       <router-link class="navbar-brand" to="/">REDOMAT <em>exQs-Me</em></router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -13,7 +13,7 @@
         </ul>
         <img class="resized" alt="user-settings" src="@/assets/user.png">
         <div class="btn btn-outline my-2 my-sm-0 mr-2">John Doe</div>
-        <div class="btn btn-outline my-2 my-sm-0 mr-2">Logout</div>
+        <div class="btn btn-outline my-2 my-sm-0 mr-2" @click="backToHome">Logout</div>
 
         <!-- <router-link v-if="!authenticated" class="btn btn-info my-2 my-sm-0 mr-2" to="/login">Login</router-link>
         <span v-if="authenticated">
@@ -54,6 +54,10 @@ img.resized { /*resized the user settings and cart icons*/
     height: 30px;
     margin-left: 15px
 }
+.navbar-custom{
+  background-color: #5396E9;
+  
+}
 </style>
 
 <script>
@@ -66,6 +70,9 @@ export default {
   methods: {
     logout() {
       store.authenticated = false
+    },
+    backToHome(){
+      this.$router.push({name: 'home'})
     }
   }
 }
