@@ -6,7 +6,7 @@
 
       <div class="option-wrapper col-sm-6">
         <img class ="hp-icon" src="@/assets/upravljaj-redom.png">
-        <router-link class="button" to="/manage-q">UPRAVLJAJ ŠALTEROM</router-link>
+        <router-link class="button" to="/manage-window">UPRAVLJAJ ŠALTEROM</router-link>
       </div>
 
       <div class="option-wrapper col-sm-6">
