@@ -6,7 +6,7 @@
      <!-- <p class="lead">{{store.selectedInstitution.Caption}}</p> -->
     <hr class="my-4">
     <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
-    <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+    <a class="btn btn-primary btn-lg" href="#" role="button" @click="getInLine">Learn more</a>
   </div>
   <Footer />
  </div>
@@ -46,7 +46,7 @@ class Queue{
     return this.tailIndex - this.headIndex;
   }
 }
-
+const localQ = new Queue();
 export default {
   name: 'enter-q',
   components: {
@@ -75,15 +75,20 @@ export default {
       // alert(q.length);
 
     },
-    getInQ(){
-      const q = new Queue();
+    getInLine(){ //dodaje osobu u red
+        // store.PQ.ID = this.uniqueID();
+        // let PersonID = store.PQ.ID;
+        let PersonID = this.uniqueID();
+        store.PQ.ID[store.PQ.PlaceInQ.length] = PersonID;
+        store.PQ.PlaceInQ[store.PQ.PlaceInQ.length] = store.PQ.PlaceInQ.length+1;
 
-        store.PQ.ID = this.uniqueID();
-        let PersonID = store.PQ.ID;
-      
-        q.enqueue(PersonID);
-        store.PQ.PlaceInQ = q.length
-      // alert(q.length);
+        localQ.enqueue(PersonID); //u lokalni red ubacuje person ID
+            // q.enqueue(PersonID);
+        store.q=localQ; //u pravi red iz storea ubacuje person ID
+        // alert(store.q.peek()) vraca prvog na redu
+        // alert(store.q.length) vraca duzinu reda
+        alert('U redu si, na '+ (store.PQ.PlaceInQ.length) +'. mjestu')
+        this.$router.replace({name: "queued"})
 
     }
 
