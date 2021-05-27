@@ -8,12 +8,16 @@
 
     <div class="option-wrapper col-sm-6">
       <img class ="hp-icon" src="@/assets/Admin-circle.png">
-      <router-link class="button" to="/main-admin">ADMIN</router-link>
+      <router-link to="/main-admin">
+        <h2 class="button" @click="IamAdmin">ADMIN</h2>
+      </router-link>
     </div>
 
     <div class="option-wrapper col-sm-6">
       <img class ="hp-icon" src="@/assets/PQ-circle.png">
-      <router-link class="button" to="/main-user">KORISNIK</router-link>
+      <router-link to="/main-user">
+        <h2 class="button" @click="IamPQ">KORISNIK</h2>
+      </router-link>
     </div>
 
     </div>
@@ -84,11 +88,11 @@ export default {
         };
     },
     methods: {
-        IamPQ() {
-            store.userType='Person-queued';
-        },
         IamAdmin() {
             store.userType='Admin';
+        },
+        IamPQ() {
+            store.userType='PersonQueued';
         }
     },
 }

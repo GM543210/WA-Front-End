@@ -115,7 +115,6 @@ export default {
   },
   data: function() {
       return {
-            store,
             Institutions,
             imageReference1: null,
             institution_name: '',
@@ -129,6 +128,7 @@ export default {
                 'City': ""
             },
             INST:[],
+            store
             
       }
   },
