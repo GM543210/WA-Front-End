@@ -6,53 +6,74 @@
 
  <form class="col-sm-4">
 
-  <div class="form-group">
-    <label for="ImeUstanove">Ime</label>
-    <input type="text" class="form-control" id="ImeUstanove">
+  <div class="form-group first-label">
+    <label for="InstName">Name of institution</label>
+    <input type="text" v-model="institution_name" class="form-control" id="InstName">
   </div>
 
   <div class="form-group">
-    <label for="RadnoVrijeme">Radno Vrijeme</label>
-    <input type="text" class="form-control" id="RadnoVrijeme">
+    <label for="InstCity">City of the branch office</label>
+    <input type="text" v-model="branch_office_city" class="form-control" id="InstCity">
   </div>
 
-<div class="form-group">
+  <div class="form-group">
+    <label for="InstAdress">Institution Adress</label>
+    <input type="text" v-model="institution_adress" class="form-control" id="InstAdress">
+  </div>
+
+  <div class="form-group">
+    <label for="WH">Radno Vrijeme</label>
+    <input type="text" v-model="institution_wh" class="form-control" id="WH">
+  </div>
+
+  <div class="form-group">
     <label for="ProsjecnoVrijemeCekanja">Prosječno vrijeme čekanja</label>
     <input type="text" class="form-control" id="ProsjecnoVrijemeCekanja">
   </div>
-
-
-  <button type="submit" class="btn btn-primary">Spremi</button>
+  <strong type="button" class="button" @click="saveInfo();getCurrentInfo()">Save</strong>
 </form>
 
 <div class="col-sm-2">
 </div>
 
 <div class="col-sm-6">
-  <h2 class="header-3-big">Šalteri</h2>
-  <img class="plus" src="@/assets/plus.png">
+  <h2 class="header-3-big">Windows</h2>
+  <div class="centered scroll">
+      <Windows v-for="window in WNDW" :key="window.Caption" :window="window" @window-selected="setSelectedWindow"/><!-- @window-selected="setSelectedWindow" -->
+  </div>
+  <img  v-if="win_num!=8" class="plus" @click="addWindow();updateWindowList()" src="@/assets/plus.png">
 </div>
 
 </div>
  </div>
-   <!-- 
-    <div class="col-4 PrListing">
-       <div class="centered scroll">
-        <Windows v-for="window in WNDW" :key="window.Caption" :window="window" @window-selected="setSelectedWindow" />
-       </div>
-        <button type="button" class="button addbtn showBtn" @click="showMore"><span>Show more windows</span></button>
-     </div>
-   -->
+   
+
+  
   <!-- <Footer /> -->
  </div>
 </template>
 
 <style scoped>
-
+.button {
+  background-color: #5396E9;
+  width: 200px;
+  border-radius: 25px;
+  color: white;
+  padding: 5px 15px;
+  text-align: center;
+  display: block;
+  font-size: 25px;
+  position: absolute;
+  left: 28.5%;
+}
 
 .form-group input {
   border-radius: 50px;
   border-color: #5396E9;
+}
+
+.first-label {
+  margin-top: 37px;
 }
 
 .form-group label {
@@ -78,7 +99,7 @@
 import HelloWorld from '@/components/HelloWorld.vue'
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
-import Windows from '@/components/Windows.vue';
+import Windows from '../components/Windows';
 import store from '@/store';
 import { firebase } from '@/firebase';
 
@@ -95,10 +116,12 @@ export default {
   components: {
     HelloWorld,
     Header,
-    Footer
+    Footer,
+    Windows
   },
   data: function(){
     return{
+      Windows,
       store,
       imageReference1: null,
       old_inst_name:'',
@@ -120,7 +143,10 @@ export default {
          'Caption': "",
          'ID':""
       },
-      WNDW:[]
+      WNDW:[],
+      lastWindow:'',
+      win_num:'',
+      windowOpen: true
 
     }
   },
@@ -177,7 +203,7 @@ export default {
       this.temp_number_of_windows = this.old_number_of_windows
     },
     getAllWindows(){
-             
+             window_counter=0;
              firebase.firestore()
             .collection('WINDOWS')
             .get()
@@ -190,10 +216,12 @@ export default {
                             'Caption': data.Name,
                             'ID': data.WindowID
                         })
+                        this.lastWindow=data.Name;
                         window_counter++;
                       }
                     console.log(data)
                 });
+                this.win_num=window_counter;
                 console.log('This Institution has '+ window_counter + ' windows.')
             });
     },
@@ -216,38 +244,76 @@ export default {
         .catch((error) =>{
             console.log("Error in updating information", error)
          });
+        //  this.getCurrentInfo();
       },
       uniqueID() {
         return Math.floor(Math.random() * Date.now())
       },
-    addWindow(){// 1. Sprema novu instituciju, ako vec postoji provjerava podatke
+    addWindow(){// 1. Sprema novi salter, ako vec postoji provjerava podatke
             // let user = firebase.auth().currentUser;
             let rid = this.uniqueID();
-            store.i++;
-            alert(store.i)
-            firebase
-            .firestore()
-            .collection('WINDOWS')
-            .doc(this.institution_name + ' - Window ' + store.i ) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za tu inst
-            .set({
-                Name : this.institution_name + ' - Window ' + store.i,
-                WindowID: rid,
-                InstitutionOfWindow: this.institution_name,
-                AuthorizedAdmins: firebase.firestore.FieldValue.arrayUnion(uid),
-                },{merge:true})
-                .then(() =>{
-                    // alert(`Institution ${store.institution_name} added`)
-                    console.log(`Institution ${store.institution_name} added`)
-                    // alert(`UID is ${store.UID}`)
-            })
-            .catch((error) =>{
-              console.log("Error in saving institution", error)
-            });
+            window_counter++;
+            // alert(store.i)
+            if(window_counter<9){
+              firebase
+              .firestore()
+              .collection('WINDOWS')
+              .doc(this.institution_name + ' - Window ' + window_counter ) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za tu inst
+              .set({
+                  Name : this.institution_name + ' - Window ' + window_counter,
+                  WindowID: rid,
+                  InstitutionOfWindow: this.institution_name,
+                  AuthorizedAdmins: firebase.firestore.FieldValue.arrayUnion(uid),
+                  Open: this.windowOpen
+                  },{merge:true})
+                  .then(() =>{
+                      // alert(`Institution ${store.institution_name} added`)
+                      console.log(`Window ${window_counter} for institution ${store.institution_name} added`)
+                      // alert(`UID is ${store.UID}`)
+                      this.lastWindow=data.Name;
+                      // store.i=window_counter;
+              })
+              .catch((error) =>{
+                console.log("Error in saving institution", error)
+              });
+            }
+            else{
+              console.log('Maximum open windows reached')
+            }
       },
       setSelectedWindow(){ //ovo se vjerojatno moze direkt iz
+        this.selectedWindow = window;
         store.selectedWindow.Caption = this.selectedWindow.Caption;
         store.selectedWindow.ID = this.selectedWindow.ID;
-    },
+      },
+      updateWindowList(){
+            if(window_counter<9){
+              firebase.firestore()
+              .collection('WINDOWS')
+              .orderBy("Name")
+              .startAt(this.lastWindow)
+              .get()
+              .then((query) => {
+                  query.forEach((doc) => {
+
+                      const data = doc.data();
+                      if(data.Name!=this.lastWindow){
+                        if(data.AuthorizedAdmins==uid){
+                          this.WNDW.push({
+                              'Caption': data.Name,
+                              'ID': data.WindowID
+                          })
+                          // window_counter++;
+                          this.lastWindow=data.Name;
+                        }
+                      }
+                      console.log(data)
+                  });
+                  this.win_num=window_counter;
+                  console.log('This Institution has '+ window_counter + ' windows.')
+              });
+            }
+      }
   },
   mounted() {
         this.getOldInfo();

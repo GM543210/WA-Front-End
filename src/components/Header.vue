@@ -1,7 +1,7 @@
 <template>
-    <div id="app">
+    <div id="app" style="width: 100%;">
 
-    <nav class="navbar navbar-expand-lg navbar-light mb-5 navbar-custom">
+    <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
       <router-link class="navbar-brand" to="/">REDOMAT <em>exQs-Me</em></router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -12,7 +12,7 @@
           <!-- <li>Todo stranica</li> -->
         </ul>
         <img class="resized" alt="user-settings" src="@/assets/user.png">
-        <div class="btn btn-outline my-2 my-sm-0 mr-2 white-txt">John Doe</div>
+        <div class="btn btn-outline my-2 my-sm-0 mr-2 white-txt" v-if="user=='Admin'">Marko</div>
         <div class="btn btn-outline my-2 my-sm-0 mr-2 white-txt" @click="backToHome">Logout</div>
 
         <!-- <router-link v-if="!authenticated" class="btn btn-info my-2 my-sm-0 mr-2" to="/login">Login</router-link>
@@ -60,8 +60,10 @@ img.resized { /*resized the user settings and cart icons*/
 .navbar-custom{
   background-color: #5396E9;
   width: 100%!important;
-  color: white;
-  
+  color: white;  
+  display:flex;
+  justify-content: space-between;
+  // margin-left:-150px!important;
 }
 .navbar-brand{
   color: white!important;
@@ -70,6 +72,7 @@ img.resized { /*resized the user settings and cart icons*/
 .white-txt{
   color: white!important;
 }
+
 </style>
 
 <script>
@@ -77,7 +80,10 @@ import store from '@/store.js'
 export default {
   name: 'Header',
   data () {
-    return store;
+    return {
+      store,
+      user: store.userType
+    }
   },
   methods: {
     logout() {
