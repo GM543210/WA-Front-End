@@ -6,12 +6,16 @@
 
       <div class="option-wrapper col-sm-6">
         <img class ="hp-icon" src="@/assets/upravljaj-redom.png">
-        <router-link class="button" to="/manage-q">UPRAVLJAJ REDOM</router-link>
+        <router-link to="/manage-q">
+         <strong class="button">MANAGE QUEUE</strong>
+        </router-link>
       </div>
 
       <div class="option-wrapper col-sm-6">
         <img class ="hp-icon" src="@/assets/zatvori-salter.png">
-        <router-link class="button" to="/window-closed">ZATVORI ŠALTER</router-link>
+        <router-link to="/window-closed">
+          <strong class="button">CLOSE WINDOW</strong>
+        </router-link>
       </div>
 
     </div>

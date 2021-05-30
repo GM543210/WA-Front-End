@@ -7,7 +7,7 @@
         <div class="option-wrapper col-sm-3">
           <p class="normal-text">Ljudi u redu</p>
           <div class="counter">
-            <h3 class="header-3">28</h3>
+            <h3 class="header-3">{{total}}</h3>
           </div>
           
 
@@ -16,16 +16,16 @@
          <div class="option-wrapper col-sm-4">
           <p class="text-big">Trenutni broj</p>
           <div class="counter-big">
-            <h3 class="header-3-big">173</h3>
+            <h3 class="header-3-big">#{{current}}</h3>
           </div>
-          <router-link class="button" to="#">SLJEDEĆI</router-link>
+          <strong class="button" @click="Next">SLJEDEĆI</strong>
 
         </div>
 
         <div class="option-wrapper col-sm-3">
           <p class="normal-text">Sljedeći broj</p>
           <div class="counter">
-            <h3 class="header-3">174</h3>
+            <h3 class="header-3">#{{next}}</h3>
           </div>
 
         </div>

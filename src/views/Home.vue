@@ -1,7 +1,7 @@
 <template>
 <div>
 
-<H1 class="main-header">MOLIMO IZABERITE OPCIJU</H1>
+<H1 class="main-header">PLEASE CHOOSE AN OPTION</H1>
 
   <div class="container main">
     <div class="row">
@@ -16,7 +16,7 @@
     <div class="option-wrapper col-sm-6">
       <img class ="hp-icon" src="@/assets/PQ-circle.png">
       <router-link to="/main-user">
-        <h2 class="button" @click="IamPQ">KORISNIK</h2>
+        <h2 class="button" @click="IamPQ">USER</h2>
       </router-link>
     </div>
 

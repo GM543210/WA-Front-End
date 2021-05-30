@@ -12,7 +12,7 @@
           <!-- <li>Todo stranica</li> -->
         </ul>
         <img class="resized" alt="user-settings" src="@/assets/user.png">
-        <div class="btn btn-outline my-2 my-sm-0 mr-2 white-txt">John Doe</div>
+        <div class="btn btn-outline my-2 my-sm-0 mr-2 white-txt" v-if="user=='Admin'">Marko</div>
         <div class="btn btn-outline my-2 my-sm-0 mr-2 white-txt" @click="backToHome">Logout</div>
 
         <!-- <router-link v-if="!authenticated" class="btn btn-info my-2 my-sm-0 mr-2" to="/login">Login</router-link>
@@ -80,7 +80,10 @@ import store from '@/store.js'
 export default {
   name: 'Header',
   data () {
-    return store;
+    return {
+      store,
+      user: store.userType
+    }
   },
   methods: {
     logout() {
