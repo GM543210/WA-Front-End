@@ -145,7 +145,8 @@ export default {
       },
       WNDW:[],
       lastWindow:'',
-      win_num:''
+      win_num:'',
+      windowOpen: true
 
     }
   },
@@ -263,6 +264,7 @@ export default {
                   WindowID: rid,
                   InstitutionOfWindow: this.institution_name,
                   AuthorizedAdmins: firebase.firestore.FieldValue.arrayUnion(uid),
+                  Open: this.windowOpen
                   },{merge:true})
                   .then(() =>{
                       // alert(`Institution ${store.institution_name} added`)

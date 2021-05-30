@@ -1,6 +1,7 @@
 <template>
  <div><Header />
 
+  <H1 class="main-header">{{currentWindowName}}</H1>
   <div class="container main">
     <div class="row">
 
@@ -13,9 +14,8 @@
 
       <div class="option-wrapper col-sm-6">
         <img class ="hp-icon" src="@/assets/zatvori-salter.png">
-        <router-link to="/window-closed">
-          <strong class="button">CLOSE WINDOW</strong>
-        </router-link>
+        <strong v-if="windowOpen==true" class="button" @click="closeWindow();getWindowInfo()">CLOSE WINDOW</strong>
+        <strong v-if="windowOpen==false" class="button" @click="openWindow()">OPEN WINDOW</strong>
       </div>
 
     </div>
@@ -57,6 +57,11 @@
   left: 29%;
   margin-top: 15px;
 }
+.main-header {
+  color:#5396E9;
+  font-size: 5vw;
+  text-align: center;
+}
 </style>
 
 <script>
@@ -74,9 +79,34 @@ export default {
     Header,
     Footer
   },
+  data(){
+    return {
+      currentWindowName:'',
+      windowOpen: ''
+    }
+  },
   methods:{
     uniqueID() {
         return Math.floor(Math.random() * Date.now())
+    },
+    getWindowName(){
+      this.currentWindowName=store.selectedWindow.Caption;
+      // alert()
+    },
+    getWindowInfo(){
+      firebase
+      .firestore()
+      .collection('WINDOWS')
+      .doc(this.currentWindowName) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za taj window
+      .get()
+      .then((doc) =>{
+         const data=doc.data();
+         this.windowOpen = data.Open;
+         console.log('Statement that this window is open is '+ this.windowOpen)
+      })
+      .catch((error) =>{
+        console.log("Error in getting info", error)
+      });
     },
     addQ(){// Dodaje novi red za odabrani Salter/Window
             
@@ -99,9 +129,43 @@ export default {
       // alert('Trenutno je ' + store.Queue.BeingServed + ' na redu')
       // alert('Sljedeci je ' + store.Queue.NextInQ + ' na redu')
     },
+    closeWindow(){
+      firebase
+      .firestore()
+      .collection('WINDOWS')
+      .doc(this.currentWindowName) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za taj window
+      .set({
+        Open: false
+      },{merge:true})
+      .then(() =>{
+         this.$router.push({name: "window-closed"});
+      })
+      .catch((error) =>{
+        console.log("Error in closing window", error)
+      });
+    //dodat reset reda
+    },
+    openWindow(){
+      firebase
+      .firestore()
+      .collection('WINDOWS')
+      .doc(this.currentWindowName) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za taj window
+      .set({
+        Open: true
+      },{merge:true})
+      .then(() =>{
+         console.log('window opened')
+         this.getWindowInfo();
+      })
+      .catch((error) =>{
+        console.log("Error in opening window", error)
+      });
+    }
   },
   mounted(){
     this.addQ();
+    this.getWindowName();
+    this.getWindowInfo();
   }
 }
 </script>

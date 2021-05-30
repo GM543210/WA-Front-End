@@ -18,12 +18,14 @@
 
 <script>
 import { firebase } from '@/firebase';
+import store from '@/store';
 export default {
     name: 'Windows',
     props: ['window',],
     methods: {
         onWindowSelected() {
             this.$emit('window-selected', this.window);
+            store.selectedWindow=this.window;
             this.$router.push({name: "manage-window"});
         },
         // deleteWindow(){

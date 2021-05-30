@@ -1,7 +1,7 @@
 <template>
  <div><Header />
 
-<H1 class="main-header">USPJEŠNO STE ZATVORILI ŠALTER!</H1>
+<H1 class="main-header">YOU HAVE CLOSED THE QUEUEING WINDOW!</H1>
 
   <!-- <Footer /> -->
  </div>
@@ -32,7 +32,7 @@ export default {
   },
   mounted(){
         // const self = this;
-        setTimeout( () => this.$router.push({name: 'main-admin'}), 5000);
+        setTimeout( () => this.$router.push({name: 'main-admin'}), 2000);
     }
 }
 </script>
