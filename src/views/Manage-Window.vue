@@ -5,12 +5,15 @@
   <div class="container main">
     <div class="row">
 
-      <div class="option-wrapper col-sm-6">
-        <img class ="hp-icon" src="@/assets/upravljaj-redom.png">
-        <router-link to="/manage-q">
-         <strong class="button">MANAGE QUEUE</strong>
-        </router-link>
-      </div>
+      <!-- <div v-bind:style="[windowOpen ? {}:{'opacity': '20%'}]"> -->
+        <div class="option-wrapper col-sm-6" v-bind:style="[windowOpen ? {}:{'opacity': '20%'}]">
+          <img class ="hp-icon" src="@/assets/upravljaj-redom.png">
+          <router-link to="/manage-q">
+            <strong v-if="windowOpen==true" class="button">MANAGE QUEUE</strong>
+          </router-link>
+          <strong v-if="windowOpen==false" class="button">MANAGE QUEUE</strong>
+        </div>
+      <!-- </div> -->
 
       <div class="option-wrapper col-sm-6">
         <img class ="hp-icon" src="@/assets/zatvori-salter.png">
@@ -44,8 +47,13 @@
   width: 50%;
 }
 
+/* 
+.transparent {
+  opacity:20%;
+} */
+
 .button {
-  background-color: #5396E9; /* Green */
+  background-color: #5396E9;
   width: 200px;
   border-radius: 25px;
   color: white;
@@ -57,6 +65,7 @@
   left: 29%;
   margin-top: 15px;
 }
+
 .main-header {
   color:#5396E9;
   font-size: 5vw;
@@ -82,7 +91,11 @@ export default {
   data(){
     return {
       currentWindowName:'',
-      windowOpen: ''
+      windowOpen: '',
+      // styleObject: {
+      // color: 'red',
+      // fontSize: '13px'
+      // }
     }
   },
   methods:{
