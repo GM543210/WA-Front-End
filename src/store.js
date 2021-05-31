@@ -63,6 +63,7 @@ export default {
         NextInQ:'',
 
     },
+    isEmpty: true,
     data(){
         return{
             q,

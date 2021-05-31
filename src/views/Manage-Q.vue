@@ -5,7 +5,7 @@
       <div class="row">
 
         <div class="option-wrapper col-sm-3">
-          <p class="normal-text">Ljudi u redu</p>
+          <p class="normal-text">People in Queue</p>
           <div class="counter">
             <h3 class="header-3">{{total}}</h3>
           </div>
@@ -14,19 +14,23 @@
         </div>
 
          <div class="option-wrapper col-sm-4">
-          <p class="text-big">Trenutni broj</p>
+          <p class="text-big">Currently served</p>
           <div class="counter-big">
             <h3 class="header-3-big">#{{current}}</h3>
           </div>
-          <strong class="button" @click="Next">SLJEDEĆI</strong>
+          <strong v-if="total>0" class="button" @click="Next">NEXT</strong>
+          <strong v-if="total<=0" class="button transparent">NEXT</strong>
+          <strong class="button2" @click="Back">&#60; BACK TO WINDOW</strong>
 
         </div>
 
         <div class="option-wrapper col-sm-3">
-          <p class="normal-text">Sljedeći broj</p>
-          <div class="counter">
-            <h3 class="header-3">#{{next}}</h3>
+          <p class="normal-text">Next in Line</p>
+          <div v-if="total>0" class="counter">
+            <h3 class="header-3">{{next}}</h3>
           </div>
+            <h3 v-if="total<=0" class="header-3">{{next}}</h3>
+
 
         </div>
 
@@ -74,11 +78,33 @@
   left: 28.5%;
 }
 
+.button2 {
+  margin-top: 60px;
+  /* background-color:white; */
+  width: 199px;
+  color:  #5396E9;
+  padding: 5px 15px;
+  text-align: center;
+  display: block;
+  font-size: 16px;
+  position: absolute;
+  left: 28.5%;
+  /* border-color: #5396E9!important;
+  border-radius: 250px;
+  outline-color: #5396E9!important;
+  outline-width: 50px; */
+  /* outline: 5px solid #5396E9; */
+  box-shadow: 0 0 0pt 2pt#5396E9;
+  border-radius: 250px;
+  
+  }
+
 .header-3 {
   color:#5396E9;
   font-size: 3vw;
   text-align: center;
   margin-top: 15px;
+
 }
 
 .header-3-big {
@@ -110,6 +136,7 @@
   color:#5396E9;
   font-size: 1.8vw;
   margin-left: 10%;
+  white-space: nowrap;
 }
 
 .text-big {
@@ -117,6 +144,11 @@
   font-size: 2.5vw;
   margin-left: 16.5%;
 }
+
+.transparent {
+  opacity:20%;
+}
+
 </style>
 
 <script>
@@ -175,8 +207,12 @@ export default {
     },
     getQData(){
         this.current=store.Queue.BeingServed
-        this.next=store.Queue.NextInQ
+        this.next='#'+store.Queue.NextInQ
         this.total=store.Queue.PeopleInQ
+
+        if(this.total<=0){
+          this.next='No one'
+        }
         // alert('Trenutno je ' + this.total + ' ljudi u redu')
         // alert('Trenutno je #' + this.current + ' na redu')
         // alert('Sljedeci je #' + this.next + ' na redu')
@@ -192,6 +228,10 @@ export default {
 
         this.getQData();
     },
+    Back(){
+      if (store.Queue.PeopleInQ!=0) store.isEmpty=false;
+      this.$router.push({name: "manage-window"});
+    }
   },
   mounted(){
     this.getQData();
