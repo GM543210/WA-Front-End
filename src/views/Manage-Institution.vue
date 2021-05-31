@@ -22,12 +22,12 @@
   </div>
 
   <div class="form-group">
-    <label for="WH">Radno Vrijeme</label>
+    <label for="WH">Working Hours</label>
     <input type="text" v-model="institution_wh" class="form-control" id="WH">
   </div>
 
   <div class="form-group">
-    <label for="ProsjecnoVrijemeCekanja">Prosječno vrijeme čekanja</label>
+    <label for="ProsjecnoVrijemeCekanja">Average waiting time</label>
     <input type="text" class="form-control" id="ProsjecnoVrijemeCekanja">
   </div>
   <strong type="button" class="button" @click="saveInfo();getCurrentInfo()">Save</strong>
