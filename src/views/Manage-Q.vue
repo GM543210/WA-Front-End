@@ -80,7 +80,6 @@
 
 .button2 {
   margin-top: 60px;
-  /* background-color:white; */
   width: 199px;
   color:  #5396E9;
   padding: 5px 15px;
@@ -89,14 +88,8 @@
   font-size: 16px;
   position: absolute;
   left: 28.5%;
-  /* border-color: #5396E9!important;
-  border-radius: 250px;
-  outline-color: #5396E9!important;
-  outline-width: 50px; */
-  /* outline: 5px solid #5396E9; */
   box-shadow: 0 0 0pt 2pt#5396E9;
   border-radius: 250px;
-  
   }
 
 .header-3 {

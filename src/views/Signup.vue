@@ -111,7 +111,7 @@ export default {
                // and we add to the database additional requested details
                FullName: this.fullname,
                Email : this.email,
-               IntitutionName : this.institution_name,
+               InstitutionName : this.institution_name,
                InstitutionBranchCity : this.branch_office_city,
                Password : this.password,
                TypeOfUser : 'Admin'

@@ -30,7 +30,7 @@ const q = new Queue();
 
 export default {
     authenticated: false,
-    currentUser: null,
+    // currentUser: null,
     userType: '',
     //za testiranje
     fullname:'',

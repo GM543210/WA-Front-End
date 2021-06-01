@@ -8,7 +8,7 @@
 
     <div class="option-wrapper col-sm-6">
       <img class ="hp-icon" src="@/assets/Admin-circle.png">
-      <router-link to="/main-admin">
+      <router-link to="/login">
         <h2 class="button" @click="IamAdmin">ADMIN</h2>
       </router-link>
     </div>
