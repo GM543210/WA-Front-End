@@ -2,9 +2,12 @@
  <div><Header />
 
   <H1 class="main-header">{{currentWindowName}}</H1>
-  <div class="container main">
+  <div class="container" v-bind:style="[windowOpen ? {'margin-top': '3%'}:{'margin-top': '10%'}]">
+    <div class="roundBack col-sm-6">
+      <img class ="back-icon" src="@/assets/admin-message.png">
+      <router-link to="/main-admin"><strong class="buttonBack">&#60; BACK</strong></router-link>
+    </div>
     <div class="row">
-
         <div class="option-wrapper col-sm-6" v-bind:style="[windowOpen ? {}:{'opacity': '20%'}]">
           <img class ="hp-icon" src="@/assets/upravljaj-redom.png">
           <strong v-if="windowOpen==true" class="button" @click="openQ">MANAGE QUEUE</strong>
@@ -25,9 +28,9 @@
 </template>
 
 <style scoped>
-.main {
-  margin-top: 10%;
-}
+/* .main {
+  margin-top: 3%;
+} */
 
 .row {
   margin-left: 10%;
@@ -35,12 +38,19 @@
 
 .option-wrapper{
   text-align: center;
-  width:50%;
+  width:20%;
   position: relative;
 }
 
 .hp-icon {
   width: 50%;
+}
+
+.back-icon {
+  width: 105%;
+  margin-left: 0%;
+  margin-top: 20%;
+
 }
 
 /* 
@@ -62,9 +72,34 @@
   margin-top: 15px;
 }
 
+.buttonBack {
+  background-color: white;
+  width: 100px;
+  border-radius: 25px;
+  color:  #5396E9;
+  padding: 5px 15px;
+  text-align: center;
+  display: block;
+  font-size: 16px;
+  position: absolute;
+  left: -8%;
+  margin-top: 30px;
+  box-shadow: 0 0 0pt 2pt#5396E9;
+
+}
+
+.roundBack {
+    top:180px;
+    left:-100px;
+    border-radius: 50%;
+    border: 4px solid #5396E9;
+    width: 100px;
+    height: 100px;
+}
+
 .main-header {
   color:#5396E9;
-  font-size: 5vw;
+  font-size: 4vw;
   text-align: center;
 }
 </style>

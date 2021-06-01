@@ -27,19 +27,23 @@
   </div>
 
   <div class="form-group">
-    <label for="ProsjecnoVrijemeCekanja">Average waiting time</label>
-    <input type="text" class="form-control" id="ProsjecnoVrijemeCekanja">
+    <label for="AvgWait">Average waiting time</label>
+    <input type="text" v-model="avgWait" class="form-control" id="AvgWait">
   </div>
-  <strong type="button" class="button" @click="saveInfo();getCurrentInfo()">Save</strong>
+  <div class="drop">
+    <strong type="button" class="button" @click="saveInfo();getCurrentInfo()">Save</strong>
+    <strong type="button" class="button2" @click="Back">&#60; BACK TO WINDOW</strong>
+  </div>
 </form>
 
 <div class="col-sm-2">
 </div>
 
 <div class="col-sm-6">
-  <h2 class="header-3-big">Windows</h2>
+  <h2 class="header-3-big">Windows (max: 8)</h2>
   <div class="centered scroll">
       <Windows v-for="window in WNDW" :key="window.Caption" :window="window" @window-selected="setSelectedWindow"/><!-- @window-selected="setSelectedWindow" -->
+      <!-- <img class="assign-to-me" src="@/assets/plus.png"> -->
   </div>
   <img  v-if="win_num!=8" class="plus" @click="addWindow();updateWindowList()" src="@/assets/plus.png">
 </div>
@@ -64,8 +68,25 @@
   display: block;
   font-size: 25px;
   position: absolute;
-  left: 28.5%;
+  left: 4%;
 }
+
+
+.button2 {
+  margin-top: 65px;
+  width: 199px;
+  height: 40px;
+  color:  #5396E9;
+  padding: 8px 15px;
+  text-align: center;
+  display: block;
+  font-size: 16px;
+  position: absolute;
+  left: 28.5%;
+  box-shadow: 0 0 0pt 2pt#5396E9;
+  border-radius: 250px;
+  left: 4%;
+  }
 
 .form-group input {
   border-radius: 50px;
@@ -92,6 +113,9 @@
   width: 50px;
   margin-left: 245px;
 }
+.drop{
+  margin-top:50px;
+}
 
 </style>
 
@@ -104,8 +128,8 @@ import store from '@/store';
 import { firebase } from '@/firebase';
 
 
-// let uid = firebase.auth().currentUser.uid; //pravi UID, za sada ne treba
-let uid = store.UID; //za testiranje
+let uid = firebase.auth().currentUser.uid; //pravi UID, za sada ne treba
+// let uid = store.UID; //za testiranje
 let window_counter = 0;
 var getOptions = {
     source: 'default'
@@ -139,6 +163,9 @@ export default {
       old_number_of_windows:'',
       number_of_windows: '',
       temp_number_of_windows: '',
+      old_avgWait:'',
+      avgWait:'',
+      temp_avgWait:'',
       selectedWindow: {
          'Caption': "",
          'ID':""
@@ -164,7 +191,8 @@ export default {
               this.old_branch_city = doc.data().InstitutionBranchCity;
               this.old_adress = doc.data().InstitutionAdress;
               this.old_wh = doc.data().InstitutionWH;
-              this.old_number_of_windows = doc.data().NumberOfWindows
+              this.old_number_of_windows = doc.data().NumberOfWindows;
+              this.old_avgWait=doc.data().WaitingTime;
               // alert(this.old_wh)
               //sve radi
             }
@@ -187,7 +215,8 @@ export default {
               this.branch_office_city = doc.data().InstitutionBranchCity;
               this.institution_adress = doc.data().InstitutionAdress;
               this.institution_wh = doc.data().InstitutionWH;
-              this.number_of_windows = doc.data().NumberOfWindows
+              this.number_of_windows = doc.data().NumberOfWindows;
+              this.avgWait=doc.data().WaitingTime;
             }
           }
         });
@@ -200,7 +229,8 @@ export default {
       this.temp_branch_office_city = this.old_branch_city;
       this.temp_institution_adress = this.old_adress;
       this.temp_institution_wh = this.old_wh;
-      this.temp_number_of_windows = this.old_number_of_windows
+      this.temp_number_of_windows = this.old_number_of_windows;
+      this.temp_avgWait=this.old_avgWait;
     },
     getAllWindows(){
              window_counter=0;
@@ -222,11 +252,13 @@ export default {
                     console.log(data)
                 });
                 this.win_num=window_counter;
+                this.number_of_windows=window_counter;
+                // alert(this.number_of_windows)
                 console.log('This Institution has '+ window_counter + ' windows.')
             });
     },
     saveInfo(){ //sprema novi info u Firestore
-        
+        // alert(this.number_of_windows)
         firebase
         .firestore()
         .collection('INSTITUTIONS')
@@ -236,10 +268,12 @@ export default {
             InstitutionBranchCity : this.branch_office_city,
             InstitutionAdress : this.institution_adress,
             InstitutionWH: this.institution_wh,
-            NumberOfWindows: this.number_of_windows
+            NumberOfWindows: this.number_of_windows,
+            WaitingTime: this.avgWait
         },{merge:true})
         .then(() =>{
             console.log("User information updated")
+            alert(this.number_of_windows)
         })
         .catch((error) =>{
             console.log("Error in updating information", error)
@@ -269,6 +303,7 @@ export default {
                   .then(() =>{
                       // alert(`Institution ${store.institution_name} added`)
                       console.log(`Window ${window_counter} for institution ${store.institution_name} added`)
+                      this.number_of_windows=window_counter;
                       // alert(`UID is ${store.UID}`)
                       this.lastWindow=data.Name;
                       // store.i=window_counter;
@@ -310,9 +345,13 @@ export default {
                       console.log(data)
                   });
                   this.win_num=window_counter;
+                  this.number_of_windows=this.window_counter;
                   console.log('This Institution has '+ window_counter + ' windows.')
               });
             }
+      },
+      Back(){
+      this.$router.push({name: "main-admin"});
       }
   },
   mounted() {

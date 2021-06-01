@@ -39,6 +39,7 @@ export default {
        return {
            email: '',
            password: '',
+          //  uid:'',
           // kriviUser: '',
            store
        }
@@ -53,7 +54,33 @@ export default {
                
                console.log('Uspješna prijava', result);
                store.authenticated=true;
-               this.$router.replace({name: "main-admin"})
+               let uid=firebase.auth().currentUser.uid;
+               let userRef = firebase.firestore().collection('ADMIN-USERS').doc(uid);
+               userRef
+               .get()
+               .then((doc)=>{
+                 const data = doc.data();
+
+                  store.fullname=data.FullName;;
+                  store.email=data.Email;
+                  store.password=data.Password;
+                  store.UID=uid;
+                  store.institution_name=data.InstitutionName;
+                  // store.branch_office_city=data.InstitutionBranchCity;
+                  // store.institution_adress=data.InstitutionAdress;
+                  // store.institution_wh=data.InstitutionWH;
+                });
+              let instRef = firebase.firestore().collection('INSTITUTIONS').doc(store.institution_name);
+              instRef
+              .get()
+              .then((doc)=>{
+                const data = doc.data();
+
+                store.branch_office_city=data.InstitutionBranchCity;
+                store.institution_adress=data.InstitutionAdress;
+                store.institution_wh=data.InstitutionWH;
+              });
+                this.$router.replace({name: "main-admin"})
            })
 	   .catch((e) => {
                console.error('greska', e);
@@ -61,7 +88,28 @@ export default {
            })
         //return kriviUser;
         
-       }
+       },
+      //  getLoginInfo() {
+      //   firebase
+      //   .firestore()
+      //   .collection('ADMIN-USERS')
+      //   .doc(this.uid)
+      //   .get()
+      //   .then(()=>{
+      //     const data = doc.data();
+
+      //     store.fullname=data.FullName;;
+      //     store.email=data.Email;
+      //     store.password=data.Password;
+      //     store.UID=this.uid;
+      //     store.institution_name=data.InstitutionName;
+      //     store.branch_office_city=data.InstitutionBranchCity;
+      //     store.institution_adress=data.InstitutionAdress;
+      //     store.institution_wh=data.InstitutionWH;
+      //   });
+      //     console.log('logging in user -> ' + store.email)
+        
+      //  },
   }
 }
 </script>
