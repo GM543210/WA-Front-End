@@ -7,11 +7,12 @@
       <router-link to="/main-admin"><strong class="buttonBack">&#60; BACK</strong></router-link>
     </div> -->
     <div class="row">
-      <div class="option-wrapper col-sm-6">
-        <img class ="hp-icon" src="@/assets/upravljaj-redom.png">
-        <router-link to="/manage-window">
-          <strong class="button">MANAGE WINDOW</strong>
-        </router-link>
+      <div class="option-wrapper col-sm-6" v-bind:style="[windowOpen ? {}:{'opacity': '20%'}]">
+          <img class ="hp-icon" src="@/assets/upravljaj-redom.png">
+        <!-- <router-link to="/manage-window"> -->
+          <strong v-if="windowOpen==true" class="button" @click="getToWindow">MANAGE WINDOW</strong>
+          <strong v-if="windowOpen==false" class="button">MANAGE WINDOW</strong>
+        <!-- </router-link> -->
       </div>
 
       <div class="option-wrapper col-sm-6">
@@ -111,10 +112,20 @@ export default {
   },
   data() {
        return {
-         store
+         store,
+         windowOpen: '',
        }
   },
   methods:{
+    windowState(){
+      if(store.selectedWindow.Caption!=''){
+        this.windowOpen=true;
+      }
+      else{ this.windowOpen=false; }
+    },
+    getToWindow(){
+      this.$router.push({name: "manage-window"});
+    }
   //   fakeSaveInstitution(){// 1. Sprema novu instituciju, ako vec postoji provjerava podatke
   //           let user = firebase.auth().currentUser;
   //           firebase
@@ -158,6 +169,7 @@ export default {
    mounted(){
       // this.fakelogin();
       // this.fakeSaveInstitution();
+      this.windowState();
   },
 }
 </script>

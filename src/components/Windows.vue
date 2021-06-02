@@ -7,6 +7,7 @@
                 <span class="caption" @click="onWindowSelected()">{{ window.Caption }}
                     <!-- <strong class="hide-button" @click="deleteWindow()">x</strong> -->
                 </span>
+                <span type="button" class="assignToMe" v-bind:style="[window.Caption==windowName ? {'background': '#5396E9'}:{}]">assign to me</span>
             </div>
         </div>
         <br>
@@ -22,11 +23,17 @@ import store from '@/store';
 export default {
     name: 'Windows',
     props: ['window',],
+    // data(){
+    //     return{
+    //         windowName:'',
+    //     }
+    // },
     methods: {
         onWindowSelected() {
             this.$emit('window-selected', this.window);
             store.selectedWindow=this.window;
-            this.$router.push({name: "manage-window"});
+            this.windowName=this.window.Caption;
+            // this.$router.push({name: "manage-window"});
         },
         // deleteWindow(){
         //     // alert('Window '+ this.window.Caption)
@@ -47,10 +54,15 @@ export default {
 </script>
 
 <style>
+strong{
+    display: block
+}
+
 .windows {
     cursor: pointer;
-    margin-left:90px;
+    margin-left:0px;
     text-align:center;
+    white-space: nowrap;    
 }
 
 .caption {
@@ -61,12 +73,31 @@ export default {
     border-radius: 50px;
     border-color: #5396E9;
     background-color: #5396E9;
-    /* display: inline-block; */
+    display: inline-block;
     height: calc(1.5em + .75rem + 2px);
     /* white-space: nowrap; */
     /* overflow: hidden; */
     padding:5px;
     color:white;
+    white-space: nowrap;
+}
+
+.assignToMe{
+    display: inline-block;
+    font-size: 1rem;
+    padding:5px;
+    font-family: helvetica;
+    color:  #5396E9;
+    width: 140px;
+    background-color:white;
+    border: 1px solid;
+    border-radius: 50px;
+    opacity:50%
+
+}
+
+.assignToMe:hover {
+opacity:100%;
 }
 
 /* .hide-button {
@@ -78,10 +109,10 @@ export default {
     display: none;
     margin-top: -2px;
     margin-right: 8px;
-}
+} */
 
-.windows:hover .hide-button {
-    display: inline-block;
+/* .windows:hover {
+background-color:white;
 } */
 
 </style>

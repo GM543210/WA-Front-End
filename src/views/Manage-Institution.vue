@@ -32,7 +32,7 @@
   </div>
   <div class="drop">
     <strong type="button" class="button" @click="saveInfo();getCurrentInfo()">Save</strong>
-    <strong type="button" class="button2" @click="Back">&#60; BACK TO WINDOW</strong>
+    <strong type="button" class="button2" @click="Back">&#60; BACK TO MAIN</strong>
   </div>
 </form>
 
@@ -273,7 +273,7 @@ export default {
         },{merge:true})
         .then(() =>{
             console.log("User information updated")
-            alert(this.number_of_windows)
+            // alert(this.number_of_windows)
         })
         .catch((error) =>{
             console.log("Error in updating information", error)
