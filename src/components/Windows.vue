@@ -4,10 +4,13 @@
     <div class="">
         <div class="col-2">
             <div class="windows">
-                <span class="caption" @click="onWindowSelected()">{{ window.Caption }}
+                <span class="caption" @click="onWindowSelected()" v-bind:style="[windowName==window.Caption ? {'background': '#5396E9'}:{'opacity': '20%'}]">{{ window.Caption }}
                     <!-- <strong class="hide-button" @click="deleteWindow()">x</strong> -->
                 </span>
-                <span type="button" class="assignToMe" v-bind:style="[window.Caption==windowName ? {'background': '#5396E9'}:{}]">assign to me</span>
+                <span v-if="beBlue == true" type="button" class="assignToMeActive" @click="AssignToMe();removeAssign()">assign to me</span> 
+                <span v-if="beBlue != true" type="button" class="assignToMePassive" @click="AssignToMe()">assign to me</span> 
+                
+                <!-- v-bind:style="[windowName==window.Caption ? {'background': '#5396E9'}:{'background': 'white'}]" -->
             </div>
         </div>
         <br>
@@ -23,32 +26,43 @@ import store from '@/store';
 export default {
     name: 'Windows',
     props: ['window',],
-    // data(){
-    //     return{
-    //         windowName:'',
-    //     }
-    // },
+    data(){
+        return{
+            windowName:'',
+            assignedWindowHelp:'',
+            beBlue:false,
+        }
+    },
     methods: {
+        checkAssignedWindow(){
+           if(store.assignedWindow==this.window.Caption){
+               this.beBlue=true
+            //    alert(this.beBlue)
+           }
+        },
         onWindowSelected() {
             this.$emit('window-selected', this.window);
             store.selectedWindow=this.window;
             this.windowName=this.window.Caption;
-            // this.$router.push({name: "manage-window"});
+            this.$router.push({name: "manage-window"});
         },
-        // deleteWindow(){
-        //     // alert('Window '+ this.window.Caption)
-        //     firebase
-        //     .firestore()
-        //     .collection('WINDOWS')
-        //     .doc(this.window.Caption)
-        //     .delete()
-        //     .then(() =>{
-        //         console.log('Window '+ this.window.Caption+' closed.')
-        //     }).catch((error) => {
-        //         console.error("Error in closing window: ", error);
-        //     });
-        // }
+        AssignToMe(){
+            store.selectedWindow=this.window;
+            store.selectedWindow.Caption = this.window.Caption;
+            store.selectedWindow.ID = this.window.ID;
+            // alert(store.selectedWindow.Caption)
+            this.windowName=store.selectedWindow.Caption
+            store.assignedWindow=this.window.Caption;
+            this.assignedWindowHelp=store.assignedWindow;
+            // alert(store.assignedWindow);
+        },
+        removeAssign(){
+            this.windowName=null;
+        }
     },
+    mounted(){
+        this.checkAssignedWindow();
+    }
 };
 
 </script>
@@ -82,7 +96,7 @@ strong{
     white-space: nowrap;
 }
 
-.assignToMe{
+.assignToMePassive{
     display: inline-block;
     font-size: 1rem;
     padding:5px;
@@ -93,6 +107,21 @@ strong{
     border: 1px solid;
     border-radius: 50px;
     opacity:50%
+
+}
+
+
+.assignToMeActive{
+    display: inline-block;
+    font-size: 1rem;
+    padding:5px;
+    font-family: helvetica;
+    color: white;
+    width: 140px;
+    background-color: #5396E9;
+    border: 1px solid;
+    border-radius: 50px;
+    /* opacity:50% */
 
 }
 

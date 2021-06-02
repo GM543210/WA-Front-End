@@ -318,8 +318,8 @@ export default {
       },
       setSelectedWindow(){ //ovo se vjerojatno moze direkt iz
         this.selectedWindow = window;
-        store.selectedWindow.Caption = this.selectedWindow.Caption;
-        store.selectedWindow.ID = this.selectedWindow.ID;
+        // store.selectedWindow.Caption = this.selectedWindow.Caption;
+        // store.selectedWindow.ID = this.selectedWindow.ID;
       },
       updateWindowList(){
             if(window_counter<9){
@@ -352,12 +352,19 @@ export default {
       },
       Back(){
       this.$router.push({name: "main-admin"});
-      }
+      },
+      checkAssigned(){
+           if(store.assignedWindow==''){
+               alert('Assigned je undefined')
+           }else alert('Assigned je defined')
+      },
+
   },
   mounted() {
         this.getOldInfo();
         this.getCurrentInfo();
         this.getAllWindows();
+        // this.checkAssigned();
   },
 
 }

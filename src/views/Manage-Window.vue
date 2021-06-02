@@ -5,7 +5,7 @@
   <div class="container" v-bind:style="[windowOpen ? {'margin-top': '3%'}:{'margin-top': '10%'}]">
     <div class="roundBack col-sm-6">
       <img class ="back-icon" src="@/assets/admin-message.png">
-      <router-link to="/main-admin"><strong class="buttonBack">&#60; BACK</strong></router-link>
+      <router-link to="/manage-institution"><strong class="buttonBack">&#60; BACK</strong></router-link>
     </div>
     <div class="row">
         <div class="option-wrapper col-sm-6" v-bind:style="[windowOpen ? {}:{'opacity': '20%'}]">

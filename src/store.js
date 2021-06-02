@@ -42,6 +42,7 @@ export default {
     institution_adress:'',
     institution_wh:'',
     i:0,
+    assignedWindow:'',
     selectedInstitution:{
         Caption: "",
         Adress:"",
