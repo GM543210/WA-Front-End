@@ -4,9 +4,14 @@
     <div class="">
         <div class="col-2">
             <div class="windows">
-                <span class="caption" @click="onWindowSelected()">{{ window.Caption }}
-                    <!-- <strong class="hide-button" @click="deleteWindow()">x</strong> -->
-                </span>
+                <span v-if="IsAssigned  != true" class="caption" v-bind:style="[beBlue == true ? {'background': '#5396E9'}:{'opacity': '20%'}]">{{ window.Caption }}</span>
+                <span v-if="IsAssigned  == true" class="caption" @click="onWindowSelected()" v-bind:style="[beBlue == true ? {'background': '#5396E9'}:{'opacity': '20%'}]">{{ window.Caption }}</span>                
+                <!-- <span v-if="beBlue == true" type="button" class="assignToMeActive">assigned to me</span> 
+                <span v-if="beBlue != true" type="button" class="assignToMePassive" @click="removeAssign();checkAssignedWindow();AssignToMe();">assign to me</span>  -->
+                <span v-if="uzas  == true" type="button" class="assignToMeActive">assigned to me</span> 
+                <span v-if="uzas  != true" type="button" class="assignToMePassive" @click="removeAssign();checkAssignedWindow();AssignToMe();">assign to me</span> 
+                
+                <!-- v-bind:style="[windowName==window.Caption ? {'background': '#5396E9'}:{'background': 'white'}]" -->
             </div>
         </div>
         <br>
@@ -22,35 +27,105 @@ import store from '@/store';
 export default {
     name: 'Windows',
     props: ['window',],
+    computed:{
+        uzas(){
+            
+
+            if(store.assignedWindow==this.window.Caption){
+                this.beBlue=true
+            }
+            else {
+                this.beBlue=false       
+            }
+                return this.beBlue
+        },
+        IsAssigned(){
+            if(store.assignedWindow==this.window.Caption){
+                this.assigned=true
+            }
+            else {
+                this.assigned=false                
+            }
+                return this.assigned
+        }
+    },
+    data(){
+        return{
+            windowName:'',
+            assignedWindowHelp:'',
+            beBlue:false,
+            assigned:false,
+        }
+    },
     methods: {
+        checkAssignedWindow(){
+           if(store.assignedWindow==this.window.Caption){
+               this.beBlue=true
+               this.assigned=true
+            //    alert(this.beBlue)
+           } else {
+               this.beBlue=false;
+               this.assigned=true
+             }
+        },
         onWindowSelected() {
             this.$emit('window-selected', this.window);
             store.selectedWindow=this.window;
+            this.windowName=this.window.Caption;
             this.$router.push({name: "manage-window"});
         },
-        // deleteWindow(){
-        //     // alert('Window '+ this.window.Caption)
-        //     firebase
-        //     .firestore()
-        //     .collection('WINDOWS')
-        //     .doc(this.window.Caption)
-        //     .delete()
-        //     .then(() =>{
-        //         console.log('Window '+ this.window.Caption+' closed.')
-        //     }).catch((error) => {
-        //         console.error("Error in closing window: ", error);
-        //     });
-        // }
+        AssignToMe(){
+            if(store.assignedWinState==false){
+                store.selectedWindow=this.window;
+                store.selectedWindow.Caption = this.window.Caption;
+                store.selectedWindow.ID = this.window.ID;
+                // alert(store.selectedWindow.Caption)
+                this.windowName=store.selectedWindow.Caption
+                store.assignedWindow=this.window.Caption;
+                this.assignedWindowHelp=store.assignedWindow;
+                store.assignedWinState=true;
+                this.assigned=store.assignedWinState;
+                this.beBlue=true
+                // alert(store.assignedWindow);
+                
+            }
+        },
+        removeAssign(){
+            // if(store.selectedWindow.Caption!=this.window.Caption){
+
+            // }
+
+            if(store.assignedWinState==true){
+                this.windowName='';
+                store.assignedWinState=false;
+                this.assigned=store.assignedWinState;
+                // store.selectedWindow=this.window;
+                // store.selectedWindow.Caption = null;
+                // store.selectedWindow.ID = '';
+                // store.assignedWindow='';
+                // this.assignedWindow='';
+                this.beBlue=false;
+            }
+
+        }
     },
+    mounted(){
+        this.checkAssignedWindow();
+    }
 };
 
 </script>
 
 <style>
+strong{
+    display: block
+}
+
 .windows {
     cursor: pointer;
-    margin-left:90px;
+    margin-left:0px;
     text-align:center;
+    white-space: nowrap;    
 }
 
 .caption {
@@ -61,12 +136,46 @@ export default {
     border-radius: 50px;
     border-color: #5396E9;
     background-color: #5396E9;
-    /* display: inline-block; */
+    display: inline-block;
     height: calc(1.5em + .75rem + 2px);
     /* white-space: nowrap; */
     /* overflow: hidden; */
     padding:5px;
     color:white;
+    white-space: nowrap;
+}
+
+.assignToMePassive{
+    display: inline-block;
+    font-size: 1rem;
+    padding:5px;
+    font-family: helvetica;
+    color:  #5396E9;
+    width: 140px;
+    background-color:white;
+    border: 1px solid;
+    border-radius: 50px;
+    opacity:50%
+
+}
+
+
+.assignToMeActive{
+    display: inline-block;
+    font-size: 1rem;
+    padding:5px;
+    font-family: helvetica;
+    color: white;
+    width: 140px;
+    background-color: #5396E9;
+    border: 1px solid;
+    border-radius: 50px;
+    /* opacity:50% */
+
+}
+
+.assignToMePassive:hover {
+opacity:100%;
 }
 
 /* .hide-button {
@@ -78,10 +187,10 @@ export default {
     display: none;
     margin-top: -2px;
     margin-right: 8px;
-}
+} */
 
-.windows:hover .hide-button {
-    display: inline-block;
+/* .windows:hover {
+background-color:white;
 } */
 
 </style>

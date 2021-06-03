@@ -9,7 +9,10 @@ import router from '@/router';
 
 export default {
   data () {
-    return store;
+    return {
+      store,
+      // windowName:'',
+    }
   },
 
   methods: {

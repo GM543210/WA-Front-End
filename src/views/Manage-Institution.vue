@@ -32,7 +32,7 @@
   </div>
   <div class="drop">
     <strong type="button" class="button" @click="saveInfo();getCurrentInfo()">Save</strong>
-    <strong type="button" class="button2" @click="Back">&#60; BACK TO WINDOW</strong>
+    <strong type="button" class="button2" @click="Back">&#60; BACK TO MAIN</strong>
   </div>
 </form>
 
@@ -168,7 +168,8 @@ export default {
       temp_avgWait:'',
       selectedWindow: {
          'Caption': "",
-         'ID':""
+         'ID':"",
+        //  'Assigned': false
       },
       WNDW:[],
       lastWindow:'',
@@ -244,7 +245,8 @@ export default {
                       if(data.AuthorizedAdmins==uid){
                         this.WNDW.push({
                             'Caption': data.Name,
-                            'ID': data.WindowID
+                            'ID': data.WindowID,
+                            // 'Assigned': store.assignedWinState
                         })
                         this.lastWindow=data.Name;
                         window_counter++;
@@ -273,7 +275,7 @@ export default {
         },{merge:true})
         .then(() =>{
             console.log("User information updated")
-            alert(this.number_of_windows)
+            // alert(this.number_of_windows)
         })
         .catch((error) =>{
             console.log("Error in updating information", error)
@@ -318,8 +320,8 @@ export default {
       },
       setSelectedWindow(){ //ovo se vjerojatno moze direkt iz
         this.selectedWindow = window;
-        store.selectedWindow.Caption = this.selectedWindow.Caption;
-        store.selectedWindow.ID = this.selectedWindow.ID;
+        // store.selectedWindow.Caption = this.selectedWindow.Caption;
+        // store.selectedWindow.ID = this.selectedWindow.ID;
       },
       updateWindowList(){
             if(window_counter<9){
@@ -336,7 +338,8 @@ export default {
                         if(data.AuthorizedAdmins==uid){
                           this.WNDW.push({
                               'Caption': data.Name,
-                              'ID': data.WindowID
+                              'ID': data.WindowID,
+                              // 'Assigned': store.assignedWinState
                           })
                           // window_counter++;
                           this.lastWindow=data.Name;
@@ -352,12 +355,22 @@ export default {
       },
       Back(){
       this.$router.push({name: "main-admin"});
-      }
+      },
+      checkAssigned(){
+          //  if(store.assignedWindow==''){
+          //      alert('Assigned je undefined')
+          //  }else alert('Assigned je defined')
+          // alert(store.assignedWindow)
+  
+          // store.assignedWindow
+      },
+
   },
   mounted() {
         this.getOldInfo();
         this.getCurrentInfo();
         this.getAllWindows();
+        // this.checkAssigned();
   },
 
 }

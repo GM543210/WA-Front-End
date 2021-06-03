@@ -2,7 +2,7 @@
  <div><Header />
 
   <H1 class="main-header">{{currentWindowName}}</H1>
-  <div class="container" v-bind:style="[windowOpen ? {'margin-top': '3%'}:{'margin-top': '10%'}]">
+  <div class="container" v-bind:style="[windowOpen ? {'margin-top': '3%'}:{'margin-top': '3%'}]">
     <div class="roundBack col-sm-6">
       <img class ="back-icon" src="@/assets/admin-message.png">
       <router-link to="/main-admin"><strong class="buttonBack">&#60; BACK</strong></router-link>
