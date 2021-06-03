@@ -4,11 +4,12 @@
     <div class="">
         <div class="col-2">
             <div class="windows">
-                <span class="caption" @click="onWindowSelected()" v-bind:style="[windowName==window.Caption ? {'background': '#5396E9'}:{'opacity': '20%'}]">{{ window.Caption }}
-                    <!-- <strong class="hide-button" @click="deleteWindow()">x</strong> -->
-                </span>
-                <span v-if="beBlue == true" type="button" class="assignToMeActive" @click="AssignToMe();removeAssign()">assign to me</span> 
-                <span v-if="beBlue != true" type="button" class="assignToMePassive" @click="AssignToMe()">assign to me</span> 
+                <span v-if="IsAssigned  != true" class="caption" v-bind:style="[beBlue == true ? {'background': '#5396E9'}:{'opacity': '20%'}]">{{ window.Caption }}</span>
+                <span v-if="IsAssigned  == true" class="caption" @click="onWindowSelected()" v-bind:style="[beBlue == true ? {'background': '#5396E9'}:{'opacity': '20%'}]">{{ window.Caption }}</span>                
+                <!-- <span v-if="beBlue == true" type="button" class="assignToMeActive">assigned to me</span> 
+                <span v-if="beBlue != true" type="button" class="assignToMePassive" @click="removeAssign();checkAssignedWindow();AssignToMe();">assign to me</span>  -->
+                <span v-if="uzas  == true" type="button" class="assignToMeActive">assigned to me</span> 
+                <span v-if="uzas  != true" type="button" class="assignToMePassive" @click="removeAssign();checkAssignedWindow();AssignToMe();">assign to me</span> 
                 
                 <!-- v-bind:style="[windowName==window.Caption ? {'background': '#5396E9'}:{'background': 'white'}]" -->
             </div>
@@ -26,19 +27,46 @@ import store from '@/store';
 export default {
     name: 'Windows',
     props: ['window',],
+    computed:{
+        uzas(){
+            
+
+            if(store.assignedWindow==this.window.Caption){
+                this.beBlue=true
+            }
+            else {
+                this.beBlue=false       
+            }
+                return this.beBlue
+        },
+        IsAssigned(){
+            if(store.assignedWindow==this.window.Caption){
+                this.assigned=true
+            }
+            else {
+                this.assigned=false                
+            }
+                return this.assigned
+        }
+    },
     data(){
         return{
             windowName:'',
             assignedWindowHelp:'',
             beBlue:false,
+            assigned:false,
         }
     },
     methods: {
         checkAssignedWindow(){
            if(store.assignedWindow==this.window.Caption){
                this.beBlue=true
+               this.assigned=true
             //    alert(this.beBlue)
-           }
+           } else {
+               this.beBlue=false;
+               this.assigned=true
+             }
         },
         onWindowSelected() {
             this.$emit('window-selected', this.window);
@@ -47,17 +75,38 @@ export default {
             this.$router.push({name: "manage-window"});
         },
         AssignToMe(){
-            store.selectedWindow=this.window;
-            store.selectedWindow.Caption = this.window.Caption;
-            store.selectedWindow.ID = this.window.ID;
-            // alert(store.selectedWindow.Caption)
-            this.windowName=store.selectedWindow.Caption
-            store.assignedWindow=this.window.Caption;
-            this.assignedWindowHelp=store.assignedWindow;
-            // alert(store.assignedWindow);
+            if(store.assignedWinState==false){
+                store.selectedWindow=this.window;
+                store.selectedWindow.Caption = this.window.Caption;
+                store.selectedWindow.ID = this.window.ID;
+                // alert(store.selectedWindow.Caption)
+                this.windowName=store.selectedWindow.Caption
+                store.assignedWindow=this.window.Caption;
+                this.assignedWindowHelp=store.assignedWindow;
+                store.assignedWinState=true;
+                this.assigned=store.assignedWinState;
+                this.beBlue=true
+                // alert(store.assignedWindow);
+                
+            }
         },
         removeAssign(){
-            this.windowName=null;
+            // if(store.selectedWindow.Caption!=this.window.Caption){
+
+            // }
+
+            if(store.assignedWinState==true){
+                this.windowName='';
+                store.assignedWinState=false;
+                this.assigned=store.assignedWinState;
+                // store.selectedWindow=this.window;
+                // store.selectedWindow.Caption = null;
+                // store.selectedWindow.ID = '';
+                // store.assignedWindow='';
+                // this.assignedWindow='';
+                this.beBlue=false;
+            }
+
         }
     },
     mounted(){
@@ -125,7 +174,7 @@ strong{
 
 }
 
-.assignToMe:hover {
+.assignToMePassive:hover {
 opacity:100%;
 }
 

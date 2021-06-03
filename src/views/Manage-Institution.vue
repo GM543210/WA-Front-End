@@ -168,7 +168,8 @@ export default {
       temp_avgWait:'',
       selectedWindow: {
          'Caption': "",
-         'ID':""
+         'ID':"",
+        //  'Assigned': false
       },
       WNDW:[],
       lastWindow:'',
@@ -244,7 +245,8 @@ export default {
                       if(data.AuthorizedAdmins==uid){
                         this.WNDW.push({
                             'Caption': data.Name,
-                            'ID': data.WindowID
+                            'ID': data.WindowID,
+                            // 'Assigned': store.assignedWinState
                         })
                         this.lastWindow=data.Name;
                         window_counter++;
@@ -336,7 +338,8 @@ export default {
                         if(data.AuthorizedAdmins==uid){
                           this.WNDW.push({
                               'Caption': data.Name,
-                              'ID': data.WindowID
+                              'ID': data.WindowID,
+                              // 'Assigned': store.assignedWinState
                           })
                           // window_counter++;
                           this.lastWindow=data.Name;
@@ -354,9 +357,12 @@ export default {
       this.$router.push({name: "main-admin"});
       },
       checkAssigned(){
-           if(store.assignedWindow==''){
-               alert('Assigned je undefined')
-           }else alert('Assigned je defined')
+          //  if(store.assignedWindow==''){
+          //      alert('Assigned je undefined')
+          //  }else alert('Assigned je defined')
+          // alert(store.assignedWindow)
+  
+          // store.assignedWindow
       },
 
   },
