@@ -257,6 +257,8 @@ export default {
                 this.number_of_windows=window_counter;
                 // alert(this.number_of_windows)
                 console.log('This Institution has '+ window_counter + ' windows.')
+                store.isFirst=true
+               store.assignedWinState=true 
             });
     },
     saveInfo(){ //sprema novi info u Firestore
@@ -300,7 +302,10 @@ export default {
                   WindowID: rid,
                   InstitutionOfWindow: this.institution_name,
                   AuthorizedAdmins: firebase.firestore.FieldValue.arrayUnion(uid),
-                  Open: this.windowOpen
+                  Open: this.windowOpen,
+                  Current: '',
+                  Next: '',
+                  Total:'',
                   },{merge:true})
                   .then(() =>{
                       // alert(`Institution ${store.institution_name} added`)

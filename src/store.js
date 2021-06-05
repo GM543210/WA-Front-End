@@ -66,6 +66,8 @@ export default {
 
     },
     isEmpty: true,
+    isExisting: false,
+    isFirst: true,
     data(){
         return{
             q,
