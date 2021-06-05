@@ -208,7 +208,7 @@ export default {
       /*store.Queue.PeopleInQ = store.PQ.PlaceInQ.length-17;
       store.Queue.BeingServed = store.PQ.PlaceInQ[16];
       store.Queue.NextInQ = store.PQ.PlaceInQ[17]; */
-       alert('Get fresh q data kaze'+ store.Queue.PeopleInQ)
+      //  alert('1. Get fresh q data kaze'+ store.Queue.PeopleInQ)
       // this.getQData();
 
       firebase
@@ -222,8 +222,8 @@ export default {
          store.Queue.BeingServed = data.Current
          store.Queue.NextInQ = data.Next
          //dodah ovo
-         alert('data.Total je ' + data.Total)
-
+        //  alert('2. data.Total je ' + data.Total)
+         this.getQData();
          console.log('Queue Info acquired')
                 // alert('Get fresh q data poslije kaze'+ store.Queue.PeopleInQ)
 
@@ -232,6 +232,7 @@ export default {
         console.log("Error in getting queue info", error)
       });
       // this.getQData();
+
         this.current=store.Queue.BeingServed
         this.next='#'+store.Queue.NextInQ
         this.total=store.Queue.PeopleInQ
@@ -239,15 +240,15 @@ export default {
         if(this.total<=0){
           this.next='No one'
         }
-      alert('Get fresh q data poslije kaze'+ store.Queue.PeopleInQ)
+      // alert('3. Get fresh q data poslije kaze'+ store.Queue.PeopleInQ)
     },
     getQData(){
-      alert('Get q data kaze'+ store.Queue.PeopleInQ)
+      // alert('Get q data kaze'+ store.Queue.PeopleInQ)
         this.current=store.Queue.BeingServed
         this.next='#'+store.Queue.NextInQ
         this.total=store.Queue.PeopleInQ
 
-        alert('Get q data poslije  kaze'+ store.Queue.PeopleInQ)
+        // alert('Get q data poslije  kaze'+ store.Queue.PeopleInQ)
         if(this.total<=0){
           this.next='No one'
         }
@@ -291,7 +292,7 @@ export default {
                       //   // store.assignedWindow='';
                       //   // this.assignedWindow='';
                       //   this.beBlue=false;
-                        alert('window info saved' )
+                        // alert('window info saved' )
             // }
               })
               .catch((error) =>{

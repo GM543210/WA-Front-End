@@ -75,6 +75,7 @@ export default {
             this.$router.push({name: "manage-window"});
         },
         AssignToMe(){
+            // alert('window info AAAAAAAAAAA' )
             if(store.assignedWinState==false){
                 store.selectedWindow=this.window;
                 store.selectedWindow.Caption = this.window.Caption;
@@ -85,17 +86,49 @@ export default {
                 this.assignedWindowHelp=store.assignedWindow;
                 store.assignedWinState=true;
                 this.assigned=store.assignedWinState;
-                this.beBlue=true
+                this.beBlue=true;
+                store.isFirst=false;
                 // alert(store.assignedWindow);
                 
             }
         },
-        removeAssign(){
-        // if(store.assignedWinState==true){   
+        removeAssign(){  
+          if(store.isFirst==true){
+              store.assignedWindow=this.window.Caption;
+            //   alert(this.window.Caption )
+
+               firebase
+               .firestore()
+               .collection('WINDOWS')
+               .doc(this.window.Caption) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za taj window
+               .get()
+               .then((doc) =>{
+                   const data=doc.data();
+                //    alert(data.Total)
+                 if(data.Total!=15 || data.Total!=0){
+                    store.isExisting=true;
+                    
+                 }
+                    //dodah ovo
+
+                   console.log('Queue Info acquired')
+                            // alert('Get fresh q data poslije kaze'+ store.Queue.PeopleInQ)
+
+                })
+                .catch((error) =>{
+                    console.log("Error in getting queue info", error)
+                });
+              this.checkAssignedWindow();
+              this.AssignToMe();
+
+          }
+
+          
           if(store.selectedWindow.Caption!=this.window.Caption ){
             // if(store.assignedWinState!=true){
             //     store.selectedWindow.Caption=this.window.Caption
             // }
+         
             firebase
               .firestore()
               .collection('WINDOWS')
@@ -135,10 +168,11 @@ export default {
                 // store.assignedWindow='';
                 // this.assignedWindow='';
                 this.beBlue=false;
-                alert('window info AAAAAAAAAAA' )
+                // alert('window info AAAAAAAAAAA' )
             }
 
-          }
+          }          
+        
         //  }
         },
         saveCurrentQState(){
@@ -167,7 +201,7 @@ export default {
                         // store.assignedWindow='';
                         // this.assignedWindow='';
                         this.beBlue=false;
-                        alert('window info saved' )
+                        // alert('window info saved' )
             }
               })
               .catch((error) =>{
@@ -177,7 +211,7 @@ export default {
         }
     },
     mounted(){
-        this.checkAssignedWindow();
+        this.checkAssignedWindow();        
     }
 };
 

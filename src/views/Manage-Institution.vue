@@ -257,6 +257,8 @@ export default {
                 this.number_of_windows=window_counter;
                 // alert(this.number_of_windows)
                 console.log('This Institution has '+ window_counter + ' windows.')
+                store.isFirst=true
+               store.assignedWinState=true 
             });
     },
     saveInfo(){ //sprema novi info u Firestore

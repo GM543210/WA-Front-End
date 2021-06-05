@@ -16,7 +16,7 @@
               <label for="exampleInputPassword1" >Password</label>
               <input type="password" v-model="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
             </div>
-            <strong>No account? Register <router-link to="/signup">here.</router-link></strong>
+            <div><strong>No account? Register <router-link to="/signup">here.</router-link></strong></div>
             <button type="button" class="btn btn-primary mt-5"  @click="login();passInfo()">Submit</button>
           </form>
         </div>

@@ -210,9 +210,13 @@ export default {
       .catch((error) =>{
         console.log("Error in getting queue info", error)
       });
+
+
     },
     closeWindow(){
       store.isEmpty=true;
+      store.isExisting=false;
+
 
       firebase
       .firestore()
@@ -253,12 +257,22 @@ export default {
       });
     },
     openQ(){
-      if(store.isEmpty==true){
+      // if(store.isEmpty==true){
+      //   this.addQ();
+      // }
+      // else if(store.isExisting==true){
+      //   this.getExistingQ();
+      //   alert('yes, the Q exists')
+      // }
+      if(store.isExisting==true){
+        this.getExistingQ();
+        store.isEmpty=false;
+        // alert('yes, the Q exists')
+      }
+      else if(store.isEmpty==true){
         this.addQ();
       }
-      else if(store.isExisting==true){
-        this.getExistingQ();
-      }
+
       this.$router.push({name: "manage-q"});
     }
   },
