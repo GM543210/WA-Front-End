@@ -300,7 +300,10 @@ export default {
                   WindowID: rid,
                   InstitutionOfWindow: this.institution_name,
                   AuthorizedAdmins: firebase.firestore.FieldValue.arrayUnion(uid),
-                  Open: this.windowOpen
+                  Open: this.windowOpen,
+                  Current: '',
+                  Next: '',
+                  Total:'',
                   },{merge:true})
                   .then(() =>{
                       // alert(`Institution ${store.institution_name} added`)

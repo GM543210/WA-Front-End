@@ -12,8 +12,8 @@
           <!-- <li>Todo stranica</li> -->
         </ul>
         <img class="resized" alt="user-settings" src="@/assets/user.png">
-        <div class="btn btn-outline my-2 my-sm-0 mr-2 white-txt" v-if="user=='Admin'">Marko</div>
-        <div class="btn btn-outline my-2 my-sm-0 mr-2 white-txt" @click="backToHome">Logout</div>
+        <div class="btn btn-outline my-2 my-sm-0 mr-2 white-txt" v-if="user=='Admin'">{{store.email}}</div>
+        <div class="btn btn-outline my-2 my-sm-0 mr-2 white-txt" @click="logout">Logout</div>
 
         <!-- <router-link v-if="!authenticated" class="btn btn-info my-2 my-sm-0 mr-2" to="/login">Login</router-link>
         <span v-if="authenticated">
@@ -88,6 +88,7 @@ export default {
   methods: {
     logout() {
       store.authenticated = false
+      this.$router.push({name: 'home'})
     },
     backToHome(){
       this.$router.push({name: 'home'})

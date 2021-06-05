@@ -151,9 +151,12 @@ export default {
       .catch((error) =>{
         console.log("Error in getting info", error)
       });
+      if(store.isEmpty!=true){
+        this.getExistingQ();
+      }
     },
     addQ(){// Dodaje novi red za odabrani Salter/Window
-            
+      alert('creating new queue')      
       store.Queue.WindowID = store.selectedWindow.ID;
       let test_counter
       for(test_counter=0;test_counter<32;test_counter++){//prewritten dio, izmisljen red za testiranje koji pocinje od 32. osobe
@@ -172,6 +175,41 @@ export default {
       // alert('Trenutno je ' + store.Queue.PeopleInQ + ' ljudi u redu')
       // alert('Trenutno je ' + store.Queue.BeingServed + ' na redu')
       // alert('Sljedeci je ' + store.Queue.NextInQ + ' na redu')
+      firebase
+              .firestore()
+              .collection('WINDOWS')
+              .doc(store.selectedWindow.Caption) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za tu inst
+              .set({
+                Current: store.Queue.BeingServed,
+                Next: store.Queue.NextInQ,
+                Total:store.Queue.PeopleInQ,
+              },{merge:true})
+              .then(() =>{
+                // alert(store.Queue.PeopleInQ)
+                  console.log('Queue info saved for window '+ store.selectedWindow.Caption);
+              })
+              .catch((error) =>{
+                console.log("Error in saving queue info", error)
+              });
+    //  store.isEmpty=false; 
+    },
+    getExistingQ(){
+      firebase
+      .firestore()
+      .collection('WINDOWS')
+      .doc(this.currentWindowName) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za taj window
+      .get()
+      .then((doc) =>{
+         const data=doc.data();
+         store.Queue.PeopleInQ = data.Total
+         store.Queue.BeingServed = data.Current
+         store.Queue.NextInQ = data.Next
+
+         console.log('Queue Info acquired')
+      })
+      .catch((error) =>{
+        console.log("Error in getting queue info", error)
+      });
     },
     closeWindow(){
       store.isEmpty=true;
@@ -184,16 +222,21 @@ export default {
         Open: false
       },{merge:true})
       .then(() =>{
+        store.isEmpty=true
+        store.Queue.BeingServed='';
+        store.Queue.NextInQ='';
+        store.Queue.PeopleInQ='';
          this.$router.push({name: "window-closed"});
       })
       .catch((error) =>{
         console.log("Error in closing window", error)
       });
     //dodat reset reda
+
+
     },
     openWindow(){
       store.isEmpty=true;
-      
       firebase
       .firestore()
       .collection('WINDOWS')
@@ -212,6 +255,9 @@ export default {
     openQ(){
       if(store.isEmpty==true){
         this.addQ();
+      }
+      else if(store.isExisting==true){
+        this.getExistingQ();
       }
       this.$router.push({name: "manage-q"});
     }

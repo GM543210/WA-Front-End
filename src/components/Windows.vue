@@ -91,10 +91,40 @@ export default {
             }
         },
         removeAssign(){
-            // if(store.selectedWindow.Caption!=this.window.Caption){
-
+        // if(store.assignedWinState==true){   
+          if(store.selectedWindow.Caption!=this.window.Caption ){
+            // if(store.assignedWinState!=true){
+            //     store.selectedWindow.Caption=this.window.Caption
             // }
-
+            firebase
+              .firestore()
+              .collection('WINDOWS')
+              .doc(store.selectedWindow.Caption) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za tu inst
+              .set({
+                  Current: store.Queue.BeingServed,
+                  Next: store.Queue.NextInQ,
+                  Total:store.Queue.PeopleInQ,
+                  },{merge:true})
+                  .then(() =>{
+                      console.log('Queue info saved for window '+ store.selectedWindow.Caption);
+                      if(store.assignedWinState==true){
+                        this.windowName='';
+                        store.assignedWinState=false;
+                        this.assigned=store.assignedWinState;
+                        // store.selectedWindow=this.window;
+                        // store.selectedWindow.Caption = null;
+                        // store.selectedWindow.ID = '';
+                        // store.assignedWindow='';
+                        // this.assignedWindow='';
+                        this.beBlue=false;
+                        alert('window info saved' )
+            }
+              })
+              .catch((error) =>{
+                console.log("Error in saving queue info", error)
+              });
+          }
+          else{
             if(store.assignedWinState==true){
                 this.windowName='';
                 store.assignedWinState=false;
@@ -105,8 +135,45 @@ export default {
                 // store.assignedWindow='';
                 // this.assignedWindow='';
                 this.beBlue=false;
+                alert('window info AAAAAAAAAAA' )
             }
 
+          }
+        //  }
+        },
+        saveCurrentQState(){
+            if(store.selectedWindow.Caption!=this.window.Caption ){
+            // if(store.assignedWinState!=true){
+            //     store.selectedWindow.Caption=this.window.Caption
+            // }
+            firebase
+              .firestore()
+              .collection('WINDOWS')
+              .doc(store.selectedWindow.Caption) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za tu inst
+              .set({
+                  Current: store.Queue.BeingServed,
+                  Next: store.Queue.NextInQ,
+                  Total:store.Queue.PeopleInQ,
+                  },{merge:true})
+                  .then(() =>{
+                      console.log('Queue info saved for window '+ store.selectedWindow.Caption);
+                      if(store.assignedWinState==true){
+                        this.windowName='';
+                        store.assignedWinState=false;
+                        this.assigned=store.assignedWinState;
+                        // store.selectedWindow=this.window;
+                        // store.selectedWindow.Caption = null;
+                        // store.selectedWindow.ID = '';
+                        // store.assignedWindow='';
+                        // this.assignedWindow='';
+                        this.beBlue=false;
+                        alert('window info saved' )
+            }
+              })
+              .catch((error) =>{
+                console.log("Error in saving queue info", error)
+              });
+            }
         }
     },
     mounted(){

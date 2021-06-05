@@ -149,6 +149,8 @@ import HelloWorld from '@/components/HelloWorld.vue'
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 import store from '@/store';
+import { firebase } from '@/firebase';
+
 
 class Queue{
   constructor(){
@@ -189,6 +191,7 @@ export default {
   },
   data(){
     return{
+        store,
         current:'',
         next:'',
         total:'',
@@ -198,11 +201,53 @@ export default {
     uniqueID() {
         return Math.floor(Math.random() * Date.now())
     },
-    getQData(){
+    getFreshQData(){
+      store.isEmpty=false;
+      //ako je Q open onda ovo, ako nije
+      
+      /*store.Queue.PeopleInQ = store.PQ.PlaceInQ.length-17;
+      store.Queue.BeingServed = store.PQ.PlaceInQ[16];
+      store.Queue.NextInQ = store.PQ.PlaceInQ[17]; */
+       alert('Get fresh q data kaze'+ store.Queue.PeopleInQ)
+      // this.getQData();
+
+      firebase
+      .firestore()
+      .collection('WINDOWS')
+      .doc(store.selectedWindow.Caption) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za taj window
+      .get()
+      .then((doc) =>{
+         const data=doc.data();
+         store.Queue.PeopleInQ = data.Total
+         store.Queue.BeingServed = data.Current
+         store.Queue.NextInQ = data.Next
+         //dodah ovo
+         alert('data.Total je ' + data.Total)
+
+         console.log('Queue Info acquired')
+                // alert('Get fresh q data poslije kaze'+ store.Queue.PeopleInQ)
+
+      })
+      .catch((error) =>{
+        console.log("Error in getting queue info", error)
+      });
+      // this.getQData();
         this.current=store.Queue.BeingServed
         this.next='#'+store.Queue.NextInQ
         this.total=store.Queue.PeopleInQ
 
+        if(this.total<=0){
+          this.next='No one'
+        }
+      alert('Get fresh q data poslije kaze'+ store.Queue.PeopleInQ)
+    },
+    getQData(){
+      alert('Get q data kaze'+ store.Queue.PeopleInQ)
+        this.current=store.Queue.BeingServed
+        this.next='#'+store.Queue.NextInQ
+        this.total=store.Queue.PeopleInQ
+
+        alert('Get q data poslije  kaze'+ store.Queue.PeopleInQ)
         if(this.total<=0){
           this.next='No one'
         }
@@ -223,11 +268,46 @@ export default {
     },
     Back(){
       if (store.Queue.PeopleInQ!=0) store.isEmpty=false;
+      store.isExisting=true;
+      firebase
+              .firestore()
+              .collection('WINDOWS')
+              .doc(store.selectedWindow.Caption) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za tu inst
+              .set({
+                  Current: store.Queue.BeingServed,
+                  Next: store.Queue.NextInQ,
+                  Total:store.Queue.PeopleInQ,
+                  },{merge:true})
+                  .then(() =>{
+                    //  alert( store.Queue.PeopleInQ)
+                      console.log('Queue info saved for window '+ store.selectedWindow.Caption);
+                      // if(store.assignedWinState==true){
+                      //   this.windowName='';
+                      //   store.assignedWinState=false;
+                      //   this.assigned=store.assignedWinState;
+                      //   // store.selectedWindow=this.window;
+                      //   // store.selectedWindow.Caption = null;
+                      //   // store.selectedWindow.ID = '';
+                      //   // store.assignedWindow='';
+                      //   // this.assignedWindow='';
+                      //   this.beBlue=false;
+                        alert('window info saved' )
+            // }
+              })
+              .catch((error) =>{
+                console.log("Error in saving queue info", error)
+              });
+
+      // this.getQData()
       this.$router.push({name: "manage-window"});
     }
   },
   mounted(){
-    this.getQData();
+    if(store.isExisting==true){
+    this.getFreshQData();
+    }
+    else this.getQData();
+    // this.getQData();
   }
 }
 </script>
