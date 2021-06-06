@@ -173,10 +173,15 @@ export default {
             });
     },
     setSelectedInstitution(){
-      store.selectedInstitution.Caption = this.selectedInstitution.Caption;
-      store.selectedInstitution.Adress = this.selectedInstitution.Adress;
-      store.selectedInstitution.WorkingHours = this.selectedInstitution.WorkingHours;
-      store.selectedInstitution.City = this.selectedInstitution.City;
+      this.selectedInstitution = institution;
+      alert( this.selectedInstitution.Caption)
+      
+      // store.selectedInstitution.Caption = this.selectedInstitution.Caption;
+      // store.selectedInstitution.Adress = this.selectedInstitution.Adress;
+      // store.selectedInstitution.WorkingHours = this.selectedInstitution.WorkingHours;
+      // store.selectedInstitution.City = this.selectedInstitution.City;
+
+      // alert(store.selectedInstitution.Caption)
     }
   }
 }

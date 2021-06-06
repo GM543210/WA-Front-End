@@ -1,6 +1,6 @@
 <template>
  <div><Header />
-  <H1 class="main-header">NAPUSTILI STE RED!</H1>
+  <H1 class="main-header">YOU HAVE LEFT THE QUEUE!</H1>
   <!-- <Footer /> -->
  </div>
 </template>
@@ -30,7 +30,7 @@ export default {
   },
   mounted(){
         // const self = this;
-        setTimeout( () => this.$router.push({name: 'main-user'}), 5000);
+        setTimeout( () => this.$router.push({name: 'main-user'}), 2000);
     }
 }
 </script>
