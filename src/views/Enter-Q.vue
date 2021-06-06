@@ -1,13 +1,13 @@
 <template>
  <div><Header />
 
-<H1 class="main-header">IME USTANOVE</H1>
+<H1 class="main-header">{{store.selectedInstitution.Caption}}</H1>
 
-<h2 class="header-2">Ljudi u redu:</h2>
+<h2 class="header-2">People in Queue:</h2>
 
 <div class="counter">
 <h3 class="header-3">33</h3>
-<router-link class="button" to="/queued">STANI U RED</router-link>
+<router-link class="button" to="/queued">GET QUEUE'D</router-link>
 </div>
 
   <!-- <Footer /> -->
@@ -107,6 +107,12 @@ export default {
     HelloWorld,
     Header,
     Footer
+  },
+  data(){
+    return{
+      store,
+      institutionName:'',
+    }
   },
   methods:{
     uniqueID() {

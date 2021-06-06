@@ -1,7 +1,7 @@
 <template>
  <div><Header />
 
-    <H1 class="main-header">IME USTANOVE</H1>
+    <H1 class="main-header">{{store.selectedInstitution.Caption}}</H1>
 
     <div class="container main">
       <div class="row">
@@ -11,7 +11,7 @@
           <div class="counter">
             <h3 class="header-3">28</h3>
           </div>
-          <p class="normal-text">Na redu za: ~20min</p>
+          <p class="normal-text">You will get served in: ~20min</p>
 
         </div>
 
@@ -20,7 +20,7 @@
           <div class="counter">
             <h3 class="header-3">33</h3>
           </div>
-          <router-link class="button" to="/left-q">ODUSTANI</router-link>
+          <router-link class="button" to="/left-q">LEAVE</router-link>
 
         </div>
 
@@ -98,6 +98,7 @@
 import HelloWorld from '@/components/HelloWorld.vue'
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
+import store from '@/store';
 
 export default {
   name: 'queued',
@@ -105,6 +106,11 @@ export default {
     HelloWorld,
     Header,
     Footer
+  },
+  data(){
+    return{
+      store,
+    }
   }
 }
 </script>

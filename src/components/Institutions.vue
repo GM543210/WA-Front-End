@@ -7,9 +7,9 @@
                 <img class="resize" src="@/assets/institution.png">
                 <span class="caption" @click="onInstitutionSelected()">{{ institution.Caption }}</span>
             </div> -->
-            <figure>
+            <figure @click="onInstitutionSelected()">
                 <img class="resize" src="@/assets/institution.png">
-                <figcaption @click="onInstitutionSelected()">{{ institution.Caption }}</figcaption>
+                <figcaption >{{ institution.Caption }}</figcaption>
             </figure>
         <!-- </div> -->
         <!-- </div> -->
@@ -26,6 +26,10 @@ export default {
     methods: {
         onInstitutionSelected() { // unknown method god knows what this does
             this.$emit('institution-selected', this.institution);
+            alert('AAAAAA')
+            alert(this.institution.Caption)
+            store.selectedInstitution= this.institution;
+            this.$router.push({name: "enter-q"});
         },
     },
 };
