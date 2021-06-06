@@ -4,32 +4,42 @@
 
 <input class="search" type="text" placeholder="Pretraži ustanovu...">
 
-<div class="flex-container">
-
-  <div class="row prvi ustanove">
-    <div class="col">
-      <img style="width: 50%;" src="@/assets/circle-temp.png">
-      <router-link class="button" to="/enter-q">USTANOVA</router-link>
-    </div>
-    <div class="col">
-      <img style="width: 50%;" src="@/assets/circle-temp.png">
-      <router-link class="button" to="/enter-q">USTANOVA</router-link>
-    </div>
-    <div class="col">
-      <img style="width: 50%;" src="@/assets/circle-temp.png">
-      <router-link class="button" to="/enter-q">USTANOVA</router-link>
-    </div>
-    <div class="col">
-      <img style="width: 50%;" src="@/assets/circle-temp.png">
-      <router-link class="button" to="/enter-q">USTANOVA</router-link>
-    </div>
-    <div class="col">
-      <img style="width: 50%;" src="@/assets/circle-temp.png">
-      <router-link class="button" to="/enter-q">USTANOVA</router-link>
+<!-- <div class="row"> -->
+  <div class="flex-container">
+    <div class="centered">
+       <Institutions v-for="institution in INST" :key="institution.Caption" :institution="institution" @institution-selected="setSelectedInstitution" />
     </div>
   </div>
+<!-- </div> -->
+  <!-- <div class="row prvi ustanove">
+    <div class="col">
+      <img style="width: 50%;" src="@/assets/circle-temp.png">
+      <router-link class="button" to="/enter-q">USTANOVA</router-link>
+    </div>
+    <div class="col">
+      <img style="width: 50%;" src="@/assets/circle-temp.png">
+      <router-link class="button" to="/enter-q">USTANOVA</router-link>
+    </div>
+    <div class="col">
+      <img style="width: 50%;" src="@/assets/circle-temp.png">
+      <router-link class="button" to="/enter-q">USTANOVA</router-link>
+    </div>
+    <div class="col">
+      <img style="width: 50%;" src="@/assets/circle-temp.png">
+      <router-link class="button" to="/enter-q">USTANOVA</router-link>
+    </div>
+    <div class="col">
+      <img style="width: 50%;" src="@/assets/circle-temp.png">
+      <router-link class="button" to="/enter-q">USTANOVA</router-link>
+    </div> -->
+    <!-- <div class="centered scroll"> -->
+        <!-- <Institutions v-for="institution in INST" :key="institution.Caption" :institution="institution" @institution-selected="setSelectedInstitution" /> -->
+    <!-- </div> -->
+  <!-- <div class="row prvi ustanove"> -->
+    <!-- <div class="col"> -->
+    <!-- </div> -->
 
-    <div class="row ustanove">
+    <!-- <div class="row ustanove">
         <div class="col">
       <img style="width: 50%;" src="@/assets/circle-temp.png">
       <router-link class="button" to="/enter-q">USTANOVA</router-link>
@@ -50,9 +60,9 @@
       <img style="width: 50%;" src="@/assets/circle-temp.png">
       <router-link class="button" to="/enter-q">USTANOVA</router-link>
     </div>
-  </div>
+  </div> -->
 
-  </div>
+  <!-- </div> -->
   <!-- 
     <div class="col-4 PrListing">
        <div class="centered scroll">
@@ -63,9 +73,14 @@
    -->
   <!-- <Footer /> -->
  </div>
+ 
 </template>
 
 <style scoped>
+.centered {
+  text-align: center;
+  margin-top: 5%;
+}
 
 .search {
 text-align: center;
@@ -111,7 +126,8 @@ export default {
   components: {
     HelloWorld,
     Header,
-    Footer
+    Footer,
+    Institutions
   },
   data: function() {
       return {
@@ -133,10 +149,10 @@ export default {
       }
   },
   mounted(){
-    this.getIntitutions();
+    this.getInstitutions();
   },
   methods:{
-    getIntitutions() { //sluzit ce za Listing Ustanova/Institucija
+    getInstitutions() { //sluzit ce za Listing Ustanova/Institucija
             firebase.firestore()
             .collection('INSTITUTIONS')
             .get()
@@ -151,6 +167,7 @@ export default {
                             // 'Availabilitydate': data.Availabilitydate,
                             'WorkingHours': data.InstitutionWH,
                         })
+                        // alert('Institution Loaded')
                     console.log(data)
                 });
             });
