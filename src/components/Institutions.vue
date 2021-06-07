@@ -1,19 +1,11 @@
 <template>
 
- <!-- <div class="row prvi ustanove"> -->
-    <!-- <div class="col"> -->
-        <!-- <div  class="list-container"> -->
-            <!-- <div class="institutions">
+
+    <div class="col">
                 <img class="resize" src="@/assets/institution.png">
-                <span class="caption" @click="onInstitutionSelected()">{{ institution.Caption }}</span>
-            </div> -->
-            <figure @click="onInstitutionSelected()">
-                <img class="resize" src="@/assets/institution.png">
-                <figcaption >{{ institution.Caption }}</figcaption>
-            </figure>
-        <!-- </div> -->
-        <!-- </div> -->
-  <!-- </div> -->
+                <span class="button" @click="onInstitutionSelected()">{{ institution.Caption }}</span>
+        </div>
+
 
 </template>
 
@@ -51,7 +43,7 @@ figure{
 
 }
 .resize {
-    width: 10%;
+    width: 20%;
     /* display: inline; */
 }
 
