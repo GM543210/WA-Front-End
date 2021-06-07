@@ -1,79 +1,15 @@
 <template>
- <div>
+<div>
   <Header />
 
 <input class="search" type="text" placeholder="Pretraži ustanovu...">
 
-<!-- <div class="row"> -->
-  <div class="flex-container">
-    <div class="centered">
-       <Institutions v-for="institution in INST" :key="institution.Caption" :institution="institution" @institution-selected="setSelectedInstitution" />
-    </div>
-  </div>
-<!-- </div> -->
-  <!-- <div class="row prvi ustanove">
-    <div class="col">
-      <img style="width: 50%;" src="@/assets/circle-temp.png">
-      <router-link class="button" to="/enter-q">USTANOVA</router-link>
-    </div>
-    <div class="col">
-      <img style="width: 50%;" src="@/assets/circle-temp.png">
-      <router-link class="button" to="/enter-q">USTANOVA</router-link>
-    </div>
-    <div class="col">
-      <img style="width: 50%;" src="@/assets/circle-temp.png">
-      <router-link class="button" to="/enter-q">USTANOVA</router-link>
-    </div>
-    <div class="col">
-      <img style="width: 50%;" src="@/assets/circle-temp.png">
-      <router-link class="button" to="/enter-q">USTANOVA</router-link>
-    </div>
-    <div class="col">
-      <img style="width: 50%;" src="@/assets/circle-temp.png">
-      <router-link class="button" to="/enter-q">USTANOVA</router-link>
-    </div> -->
-    <!-- <div class="centered scroll"> -->
-        <!-- <Institutions v-for="institution in INST" :key="institution.Caption" :institution="institution" @institution-selected="setSelectedInstitution" /> -->
-    <!-- </div> -->
-  <!-- <div class="row prvi ustanove"> -->
-    <!-- <div class="col"> -->
-    <!-- </div> -->
+<div class="row ustanove">
+  <Institutions v-for="institution in INST" :key="institution.Caption" :institution="institution" @institution-selected="setSelectedInstitution" />
+</div>
 
-    <!-- <div class="row ustanove">
-        <div class="col">
-      <img style="width: 50%;" src="@/assets/circle-temp.png">
-      <router-link class="button" to="/enter-q">USTANOVA</router-link>
-    </div>
-    <div class="col">
-      <img style="width: 50%;" src="@/assets/circle-temp.png">
-      <router-link class="button" to="/enter-q">USTANOVA</router-link>
-    </div>
-    <div class="col">
-      <img style="width: 50%;" src="@/assets/circle-temp.png">
-      <router-link class="button" to="/enter-q">USTANOVA</router-link>
-    </div>
-    <div class="col">
-      <img style="width: 50%;" src="@/assets/circle-temp.png">
-      <router-link class="button" to="/enter-q">USTANOVA</router-link>
-    </div>
-    <div class="col">
-      <img style="width: 50%;" src="@/assets/circle-temp.png">
-      <router-link class="button" to="/enter-q">USTANOVA</router-link>
-    </div>
-  </div> -->
-
-  <!-- </div> -->
-  <!-- 
-    <div class="col-4 PrListing">
-       <div class="centered scroll">
-        <Institutions v-for="institution in INST" :key="institution.Caption" :institution="institution" @product-selected="setSelectedProduct" />
-       </div>
-        <button type="button" class="button addbtn showBtn" @click="showMore"><span>Show more institutions</span></button>
-     </div>
-   -->
-  <!-- <Footer /> -->
- </div>
- 
+<Footer />
+</div>
 </template>
 
 <style scoped>
@@ -94,6 +30,7 @@ border-radius: 25px;
 
 .ustanove {
   margin-bottom: 100px;
+  margin-top: 100px;
   text-align: center;
 }
 
