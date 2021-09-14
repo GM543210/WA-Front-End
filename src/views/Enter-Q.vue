@@ -1,13 +1,13 @@
 <template>
  <div><Header />
 
-<H1 class="main-header">{{store.selectedInstitution.Caption}}</H1>
+<H1 class="main-header">{{store.selectedInstitution.institution_name}}</H1>
 
 <h2 class="header-2">People in Queue:</h2>
 
 <div class="counter">
-<h3 class="header-3">33</h3>
-<router-link class="button" to="/queued">GET QUEUE'D</router-link>
+<h3 class="header-3">{{ queue_size }}</h3>
+<span class="button" @click="onGetQueuedPressed()">GET QUEUE'D</span>
 </div>
 
   <!-- <Footer /> -->
@@ -71,36 +71,8 @@ import HelloWorld from '@/components/HelloWorld.vue'
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 import store from '@/store';
-import { firebase } from '@/firebase';
+import { Queue } from '@/services'
 
-class Queue{
-  constructor(){
-    this.people = {};
-    this.headIndex = 0;
-    this.tailIndex = 0;
-  }
-
-  enqueue(PersonID){
-    this.people[this.tailIndex] = PersonID;
-    this.tailIndex++;
-  }
-
-  dequeue(){
-    const PersonID = this.people[this.headIndex];
-    delete this.people[this.headIndex];
-    this.headIndex++;
-    return PersonID;
-  }
-
-  peek(){
-    return this.people[this.headIndex];
-  }
-
-  get length(){
-    return this.tailIndex - this.headIndex;
-  }
-}
-const localQ = new Queue();
 export default {
   name: 'enter-q',
   components: {
@@ -111,47 +83,36 @@ export default {
   data(){
     return{
       store,
+      queue_size: 0,
       institutionName:'',
     }
   },
+  mounted() {
+    this.getQueueSize()
+  },
   methods:{
-    uniqueID() {
-        return Math.floor(Math.random() * Date.now())
-    },
-    getInQTest(){ //test n info
-      const q = new Queue();
-      let a;
-      for(a=0 ; a<5 ; a++){ //vrti pet puta samo za test
-        store.PQ.ID = this.uniqueID();
-        let PersonID = store.PQ.ID;
-        // alert(PersonID)
-
-        q.enqueue(PersonID);
-        if(a==4){
-          let brojuredu = q.length;
-            // alert(brojuredu) //vraca broj u redu
-        }
+    async getQueueSize() {
+      let data = {
+        institution_name: store.selectedInstitution.institution_name
       }
-      // alert(q.length);
 
+      Queue.getSize(data)
+          .then((res) => {
+            this.queue_size = res.data
+          })
     },
-    getInLine(){ //dodaje osobu u red
-        // store.PQ.ID = this.uniqueID();
-        // let PersonID = store.PQ.ID;
-        let PersonID = this.uniqueID();
-        store.PQ.ID[store.PQ.PlaceInQ.length] = PersonID;
-        store.PQ.PlaceInQ[store.PQ.PlaceInQ.length] = store.PQ.PlaceInQ.length+1;
 
-        localQ.enqueue(PersonID); //u lokalni red ubacuje person ID
-            // q.enqueue(PersonID);
-        store.q=localQ; //u pravi red iz storea ubacuje person ID
-        // alert(store.q.peek()) vraca prvog na redu
-        // alert(store.q.length) vraca duzinu reda
-        alert('U redu si, na '+ (store.PQ.PlaceInQ.length) +'. mjestu')
-        this.$router.replace({name: "queued"})
+    onGetQueuedPressed() {
+      let inst = {
+        institution_name: store.selectedInstitution.institution_name
+      }
 
+      Queue.addToQueue(inst)
+          .then((res) => {
+            store.queuePosition = res.data
+            this.$router.replace('/queued')
+          })
     }
-
   }
 }
 </script>
