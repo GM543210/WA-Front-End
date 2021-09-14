@@ -31,7 +31,7 @@
     <input type="text" v-model="avgWait" class="form-control" id="AvgWait">
   </div>
   <div class="drop">
-    <strong type="button" class="button" @click="saveInfo();getCurrentInfo()">Save</strong>
+    <strong type="button" class="button" @click="updateInstitution">Save</strong>
     <strong type="button" class="button2" @click="Back">&#60; BACK TO MAIN</strong>
   </div>
 </form>
@@ -125,15 +125,7 @@ import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 import Windows from '../components/Windows';
 import store from '@/store';
-import { firebase } from '@/firebase';
-
-
-let uid = firebase.auth().currentUser.uid; //pravi UID, za sada ne treba
-// let uid = store.UID; //za testiranje
-let window_counter = 0;
-var getOptions = {
-    source: 'default'
-};
+import { Institutions } from '@/services'
 
 export default {
   name: 'manage-institution',
@@ -179,185 +171,185 @@ export default {
     }
   },
   methods:{
-    getOldInfo(){
-      firebase.firestore()
-      .collection('INSTITUTIONS')
-      .get(getOptions)
-      .then((query) => { //fcija za citanje iz dokumenta iz db
-        query.forEach((doc) => {
-          const data = doc.data();
-          for(var i=0;i<data.AuthorizedAdmins.length;++i){
-            if(data.AuthorizedAdmins[i] == uid){
-              this.old_inst_name = doc.data().Name;
-              this.old_branch_city = doc.data().InstitutionBranchCity;
-              this.old_adress = doc.data().InstitutionAdress;
-              this.old_wh = doc.data().InstitutionWH;
-              this.old_number_of_windows = doc.data().NumberOfWindows;
-              this.old_avgWait=doc.data().WaitingTime;
-              // alert(this.old_wh)
-              //sve radi
-            }
-          }
-        });
-      }).catch((error) => {
-          console.log("Error getting cached document:", error);
-      });
-    },
-    getCurrentInfo(){
-      firebase.firestore()
-      .collection('INSTITUTIONS')
-      .get(getOptions)
-      .then((query) => { //fcija za citanje iz dokumenta iz db
-        query.forEach((doc) => {
-          const data = doc.data();
-          for(var i=0;i<data.AuthorizedAdmins.length;++i){
-            if(data.AuthorizedAdmins[i] == uid){
-              this.institution_name = doc.data().Name;
-              this.branch_office_city = doc.data().InstitutionBranchCity;
-              this.institution_adress = doc.data().InstitutionAdress;
-              this.institution_wh = doc.data().InstitutionWH;
-              this.number_of_windows = doc.data().NumberOfWindows;
-              this.avgWait=doc.data().WaitingTime;
-            }
-          }
-        });
-      }).catch((error) => {
-          console.log("Error getting cached document:", error);
-      });
-    },
-    storeOldInfo(){ //sprema prvotni admin info privremeno
-      this.temp_institution_name = this.old_inst_name;
-      this.temp_branch_office_city = this.old_branch_city;
-      this.temp_institution_adress = this.old_adress;
-      this.temp_institution_wh = this.old_wh;
-      this.temp_number_of_windows = this.old_number_of_windows;
-      this.temp_avgWait=this.old_avgWait;
-    },
-    getAllWindows(){
-             window_counter=0;
-             firebase.firestore()
-            .collection('WINDOWS')
-            .get()
-            .then((query) => {
-                query.forEach((doc) => {
+    // getOldInfo(){
+    //   firebase.firestore()
+    //   .collection('INSTITUTIONS')
+    //   .get(getOptions)
+    //   .then((query) => { //fcija za citanje iz dokumenta iz db
+    //     query.forEach((doc) => {
+    //       const data = doc.data();
+    //       for(var i=0;i<data.AuthorizedAdmins.length;++i){
+    //         if(data.AuthorizedAdmins[i] == uid){
+    //           this.old_inst_name = doc.data().Name;
+    //           this.old_branch_city = doc.data().InstitutionBranchCity;
+    //           this.old_adress = doc.data().InstitutionAdress;
+    //           this.old_wh = doc.data().InstitutionWH;
+    //           this.old_number_of_windows = doc.data().NumberOfWindows;
+    //           this.old_avgWait=doc.data().WaitingTime;
+    //           // alert(this.old_wh)
+    //           //sve radi
+    //         }
+    //       }
+    //     });
+    //   }).catch((error) => {
+    //       console.log("Error getting cached document:", error);
+    //   });
+    // },
+    // getCurrentInfo(){
+    //   firebase.firestore()
+    //   .collection('INSTITUTIONS')
+    //   .get(getOptions)
+    //   .then((query) => { //fcija za citanje iz dokumenta iz db
+    //     query.forEach((doc) => {
+    //       const data = doc.data();
+    //       for(var i=0;i<data.AuthorizedAdmins.length;++i){
+    //         if(data.AuthorizedAdmins[i] == uid){
+    //           this.institution_name = doc.data().Name;
+    //           this.branch_office_city = doc.data().InstitutionBranchCity;
+    //           this.institution_adress = doc.data().InstitutionAdress;
+    //           this.institution_wh = doc.data().InstitutionWH;
+    //           this.number_of_windows = doc.data().NumberOfWindows;
+    //           this.avgWait=doc.data().WaitingTime;
+    //         }
+    //       }
+    //     });
+    //   }).catch((error) => {
+    //       console.log("Error getting cached document:", error);
+    //   });
+    // },
+    // storeOldInfo(){ //sprema prvotni admin info privremeno
+    //   this.temp_institution_name = this.old_inst_name;
+    //   this.temp_branch_office_city = this.old_branch_city;
+    //   this.temp_institution_adress = this.old_adress;
+    //   this.temp_institution_wh = this.old_wh;
+    //   this.temp_number_of_windows = this.old_number_of_windows;
+    //   this.temp_avgWait=this.old_avgWait;
+    // },
+    // getAllWindows(){
+    //          window_counter=0;
+    //          firebase.firestore()
+    //         .collection('WINDOWS')
+    //         .get()
+    //         .then((query) => {
+    //             query.forEach((doc) => {
 
-                    const data = doc.data();
-                      if(data.AuthorizedAdmins==uid){
-                        this.WNDW.push({
-                            'Caption': data.Name,
-                            'ID': data.WindowID,
-                            // 'Assigned': store.assignedWinState
-                        })
-                        this.lastWindow=data.Name;
-                        window_counter++;
-                      }
-                    console.log(data)
-                });
-                this.win_num=window_counter;
-                this.number_of_windows=window_counter;
-                // alert(this.number_of_windows)
-                console.log('This Institution has '+ window_counter + ' windows.')
-                store.isFirst=true
-               store.assignedWinState=true 
-            });
-    },
-    saveInfo(){ //sprema novi info u Firestore
-        // alert(this.number_of_windows)
-        firebase
-        .firestore()
-        .collection('INSTITUTIONS')
-        .doc(this.institution_name) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za tu ustanovu
-        .set({
-            Name : this.institution_name,
-            InstitutionBranchCity : this.branch_office_city,
-            InstitutionAdress : this.institution_adress,
-            InstitutionWH: this.institution_wh,
-            NumberOfWindows: this.number_of_windows,
-            WaitingTime: this.avgWait
-        },{merge:true})
-        .then(() =>{
-            console.log("User information updated")
-            // alert(this.number_of_windows)
-        })
-        .catch((error) =>{
-            console.log("Error in updating information", error)
-         });
-        //  this.getCurrentInfo();
-      },
-      uniqueID() {
-        return Math.floor(Math.random() * Date.now())
-      },
-    addWindow(){// 1. Sprema novi salter, ako vec postoji provjerava podatke
-            // let user = firebase.auth().currentUser;
-            let rid = this.uniqueID();
-            window_counter++;
-            // alert(store.i)
-            if(window_counter<9){
-              firebase
-              .firestore()
-              .collection('WINDOWS')
-              .doc(this.institution_name + ' - Window ' + window_counter ) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za tu inst
-              .set({
-                  Name : this.institution_name + ' - Window ' + window_counter,
-                  WindowID: rid,
-                  InstitutionOfWindow: this.institution_name,
-                  AuthorizedAdmins: firebase.firestore.FieldValue.arrayUnion(uid),
-                  Open: this.windowOpen,
-                  Current: '',
-                  Next: '',
-                  Total:'',
-                  },{merge:true})
-                  .then(() =>{
-                      // alert(`Institution ${store.institution_name} added`)
-                      console.log(`Window ${window_counter} for institution ${store.institution_name} added`)
-                      this.number_of_windows=window_counter;
-                      // alert(`UID is ${store.UID}`)
-                      this.lastWindow=data.Name;
-                      // store.i=window_counter;
-              })
-              .catch((error) =>{
-                console.log("Error in saving institution", error)
-              });
-            }
-            else{
-              console.log('Maximum open windows reached')
-            }
-      },
-      setSelectedWindow(){ //ovo se vjerojatno moze direkt iz
-        this.selectedWindow = window;
-        // store.selectedWindow.Caption = this.selectedWindow.Caption;
-        // store.selectedWindow.ID = this.selectedWindow.ID;
-      },
-      updateWindowList(){
-            if(window_counter<9){
-              firebase.firestore()
-              .collection('WINDOWS')
-              .orderBy("Name")
-              .startAt(this.lastWindow)
-              .get()
-              .then((query) => {
-                  query.forEach((doc) => {
+    //                 const data = doc.data();
+    //                   if(data.AuthorizedAdmins==uid){
+    //                     this.WNDW.push({
+    //                         'Caption': data.Name,
+    //                         'ID': data.WindowID,
+    //                         // 'Assigned': store.assignedWinState
+    //                     })
+    //                     this.lastWindow=data.Name;
+    //                     window_counter++;
+    //                   }
+    //                 console.log(data)
+    //             });
+    //             this.win_num=window_counter;
+    //             this.number_of_windows=window_counter;
+    //             // alert(this.number_of_windows)
+    //             console.log('This Institution has '+ window_counter + ' windows.')
+    //             store.isFirst=true
+    //            store.assignedWinState=true 
+    //         });
+    // },
+    // saveInfo(){ //sprema novi info u Firestore
+    //     // alert(this.number_of_windows)
+    //     firebase
+    //     .firestore()
+    //     .collection('INSTITUTIONS')
+    //     .doc(this.institution_name) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za tu ustanovu
+    //     .set({
+    //         Name : this.institution_name,
+    //         InstitutionBranchCity : this.branch_office_city,
+    //         InstitutionAdress : this.institution_adress,
+    //         InstitutionWH: this.institution_wh,
+    //         NumberOfWindows: this.number_of_windows,
+    //         WaitingTime: this.avgWait
+    //     },{merge:true})
+    //     .then(() =>{
+    //         console.log("User information updated")
+    //         // alert(this.number_of_windows)
+    //     })
+    //     .catch((error) =>{
+    //         console.log("Error in updating information", error)
+    //      });
+    //     //  this.getCurrentInfo();
+    //   },
+    //   uniqueID() {
+    //     return Math.floor(Math.random() * Date.now())
+    //   },
+    // addWindow(){// 1. Sprema novi salter, ako vec postoji provjerava podatke
+    //         // let user = firebase.auth().currentUser;
+    //         let rid = this.uniqueID();
+    //         window_counter++;
+    //         // alert(store.i)
+    //         if(window_counter<9){
+    //           firebase
+    //           .firestore()
+    //           .collection('WINDOWS')
+    //           .doc(this.institution_name + ' - Window ' + window_counter ) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za tu inst
+    //           .set({
+    //               Name : this.institution_name + ' - Window ' + window_counter,
+    //               WindowID: rid,
+    //               InstitutionOfWindow: this.institution_name,
+    //               AuthorizedAdmins: firebase.firestore.FieldValue.arrayUnion(uid),
+    //               Open: this.windowOpen,
+    //               Current: '',
+    //               Next: '',
+    //               Total:'',
+    //               },{merge:true})
+    //               .then(() =>{
+    //                   // alert(`Institution ${store.institution_name} added`)
+    //                   console.log(`Window ${window_counter} for institution ${store.institution_name} added`)
+    //                   this.number_of_windows=window_counter;
+    //                   // alert(`UID is ${store.UID}`)
+    //                   this.lastWindow=data.Name;
+    //                   // store.i=window_counter;
+    //           })
+    //           .catch((error) =>{
+    //             console.log("Error in saving institution", error)
+    //           });
+    //         }
+    //         else{
+    //           console.log('Maximum open windows reached')
+    //         }
+    //   },
+    //   setSelectedWindow(){ //ovo se vjerojatno moze direkt iz
+    //     this.selectedWindow = window;
+    //     // store.selectedWindow.Caption = this.selectedWindow.Caption;
+    //     // store.selectedWindow.ID = this.selectedWindow.ID;
+    //   },
+    //   updateWindowList(){
+    //         if(window_counter<9){
+    //           firebase.firestore()
+    //           .collection('WINDOWS')
+    //           .orderBy("Name")
+    //           .startAt(this.lastWindow)
+    //           .get()
+    //           .then((query) => {
+    //               query.forEach((doc) => {
 
-                      const data = doc.data();
-                      if(data.Name!=this.lastWindow){
-                        if(data.AuthorizedAdmins==uid){
-                          this.WNDW.push({
-                              'Caption': data.Name,
-                              'ID': data.WindowID,
-                              // 'Assigned': store.assignedWinState
-                          })
-                          // window_counter++;
-                          this.lastWindow=data.Name;
-                        }
-                      }
-                      console.log(data)
-                  });
-                  this.win_num=window_counter;
-                  this.number_of_windows=this.window_counter;
-                  console.log('This Institution has '+ window_counter + ' windows.')
-              });
-            }
-      },
+    //                   const data = doc.data();
+    //                   if(data.Name!=this.lastWindow){
+    //                     if(data.AuthorizedAdmins==uid){
+    //                       this.WNDW.push({
+    //                           'Caption': data.Name,
+    //                           'ID': data.WindowID,
+    //                           // 'Assigned': store.assignedWinState
+    //                       })
+    //                       // window_counter++;
+    //                       this.lastWindow=data.Name;
+    //                     }
+    //                   }
+    //                   console.log(data)
+    //               });
+    //               this.win_num=window_counter;
+    //               this.number_of_windows=this.window_counter;
+    //               console.log('This Institution has '+ window_counter + ' windows.')
+    //           });
+    //         }
+    //   },
       Back(){
       this.$router.push({name: "main-admin"});
       },
@@ -370,11 +362,42 @@ export default {
           // store.assignedWindow
       },
 
+      getInstitutionInfo() {
+        let inst = {
+          institution_name: store.institution_name
+        }
+
+        Institutions.getByName(inst)
+                    .then((res) => {
+                      this.institution_name = res.data.institution_name
+                      this.institution_wh = res.data.institution_wh
+                      this.institution_adress = res.data.institution_adress
+                      this.branch_office_city = res.data.branch_office_city
+                    })
+      },
+
+      updateInstitution() {
+        let inst = {
+          institution_old_name: store.institution_name,
+          institution_name: this.institution_name,
+          institution_wh: this.institution_wh,
+          institution_adress: this.institution_adress,
+          branch_office_city: this.branch_office_city
+        }
+
+        Institutions.update(inst)
+                  .then(() => {
+                    console.log('Update successful')
+                    store.institution_name = this.institution_name
+                    this.getInstitutionInfo()
+                  })
+      }
+
   },
   mounted() {
-        this.getOldInfo();
-        this.getCurrentInfo();
-        this.getAllWindows();
+        this.getInstitutionInfo();
+        // this.getCurrentInfo();
+        // this.getAllWindows();
         // this.checkAssigned();
   },
 

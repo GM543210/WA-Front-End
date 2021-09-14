@@ -1,17 +1,20 @@
 <template>
  <div><Header />
+  <H1 class="main-header">{{ store.institution_name }}</H1>
 
   <div class="container main">
+
     <!-- <div class="roundBack col-sm-6">
       <img class ="back-icon" src="@/assets/admin-message.png">
       <router-link to="/main-admin"><strong class="buttonBack">&#60; BACK</strong></router-link>
     </div> -->
     <div class="row">
-      <div class="option-wrapper col-sm-6" v-bind:style="[windowOpen ? {}:{'opacity': '20%'}]">
+      <div class="option-wrapper col-sm-6">
           <img class ="hp-icon" src="@/assets/upravljaj-redom.png">
         <!-- <router-link to="/manage-window"> -->
-          <strong v-if="windowOpen==true" class="button" @click="getToWindow">MANAGE WINDOW</strong>
-          <strong v-if="windowOpen==false" class="button">MANAGE WINDOW</strong>
+        <strong class="button" @click="getToWindow">MANAGE WINDOW</strong>
+          <!-- <strong v-if="windowOpen==true" class="button" @click="getToWindow">MANAGE WINDOW</strong>
+          <strong v-if="windowOpen==false" class="button">MANAGE WINDOW</strong> -->
         <!-- </router-link> -->
       </div>
 
@@ -62,6 +65,12 @@
   margin-top: 15px;
 }
 
+.main-header {
+  color:#5396E9;
+  font-size: 4vw;
+  text-align: center;
+}
+
 /* .back-icon {
   width: 105%;
   margin-left: 0%;
@@ -101,7 +110,6 @@ import HelloWorld from '@/components/HelloWorld.vue'
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 import store from '@/store.js'
-import { firebase } from '@/firebase';
 
 export default {
   name: 'main-admin',

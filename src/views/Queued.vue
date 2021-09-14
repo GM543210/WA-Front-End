@@ -1,7 +1,7 @@
 <template>
  <div><Header />
 
-    <H1 class="main-header">{{store.selectedInstitution.Caption}}</H1>
+    <H1 class="main-header">{{store.selectedInstitution.institution_name}}</H1>
 
     <div class="container main">
       <div class="row">
@@ -9,16 +9,16 @@
         <div class="option-wrapper col-sm-6">
 
           <div class="counter">
-            <h3 class="header-3">28</h3>
+            <h3 class="header-3">{{ currentNum }}</h3>
           </div>
-          <p class="normal-text">You will get served in: ~20min</p>
+          <p class="normal-text">You will get served in: ~{{ (queueState-1) * 5 }}min</p>
 
         </div>
 
         <div class="option-wrapper col-sm-6">
 
           <div class="counter">
-            <h3 class="header-3">33</h3>
+            <h3 class="header-3">{{ store.queuePosition }}</h3>
           </div>
           <router-link class="button" to="/left-q">LEAVE</router-link>
 
@@ -99,6 +99,7 @@ import HelloWorld from '@/components/HelloWorld.vue'
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 import store from '@/store';
+import { Queue } from '@/services'
 
 export default {
   name: 'queued',
@@ -110,6 +111,28 @@ export default {
   data(){
     return{
       store,
+      currentNum: 0,
+      queueState: 0,
+    }
+  },
+  mounted() {
+    this.getCurrentlyServed()
+  },
+  methods: {
+    async getCurrentlyServed() {
+      let inst = {
+        institution_name: store.selectedInstitution.institution_name
+      }
+
+      Queue.getCurrent(inst)
+          .then((res) => {
+            this.currentNum = res.data
+          })
+
+      Queue.getSize(inst)
+          .then((res) => {
+            this.queueState = res.data
+          })
     }
   }
 }

@@ -5,7 +5,7 @@
 <input class="search" type="text" placeholder="Pretraži ustanovu...">
 
 <div class="row ustanove">
-  <Institutions v-for="institution in INST" :key="institution.Caption" :institution="institution" @institution-selected="setSelectedInstitution" />
+  <InstitutionComp v-for="institution in INST" :key="institution._id" :institution="institution" />
 </div>
 
 <Footer />
@@ -54,9 +54,9 @@ border-radius: 25px;
 import HelloWorld from '@/components/HelloWorld.vue'
 import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
-import Institutions from '@/components/Institutions.vue';
+import InstitutionComp from '@/components/Institutions.vue';
 import store from '@/store';
-import { firebase } from '@/firebase';
+import { Institutions } from '@/services'
 
 export default {
   name: 'main-user',
@@ -64,11 +64,11 @@ export default {
     HelloWorld,
     Header,
     Footer,
-    Institutions
+    InstitutionComp
   },
   data: function() {
       return {
-            Institutions,
+            InstitutionComp,
             imageReference1: null,
             institution_name: '',
             branch_office_city: '',
@@ -89,37 +89,12 @@ export default {
     this.getInstitutions();
   },
   methods:{
-    getInstitutions() { //sluzit ce za Listing Ustanova/Institucija
-            firebase.firestore()
-            .collection('INSTITUTIONS')
-            .get()
-            .then((query) => {
-                query.forEach((doc) => {
-
-                    const data = doc.data();
-                        this.INST.push({
-                            'Caption': data.Name,
-                            'City': data.InstitutionBranchCity,
-                            'Adress' : data.InstitutionAdress,
-                            // 'Availabilitydate': data.Availabilitydate,
-                            'WorkingHours': data.InstitutionWH,
-                        })
-                        // alert('Institution Loaded')
-                    console.log(data)
-                });
-            });
+    async getInstitutions() { //sluzit ce za Listing Ustanova/Institucija
+      Institutions.getAll()
+                  .then((res) => {
+                    this.INST = res.data
+                  })
     },
-    setSelectedInstitution(){
-      this.selectedInstitution = institution;
-      alert( this.selectedInstitution.Caption)
-      
-      // store.selectedInstitution.Caption = this.selectedInstitution.Caption;
-      // store.selectedInstitution.Adress = this.selectedInstitution.Adress;
-      // store.selectedInstitution.WorkingHours = this.selectedInstitution.WorkingHours;
-      // store.selectedInstitution.City = this.selectedInstitution.City;
-
-      // alert(store.selectedInstitution.Caption)
-    }
   }
 }
 </script>

@@ -54,6 +54,7 @@
 <script>
 import { firebase } from '@/firebase';
 import store from '@/store.js'
+import { Auth, Institutions } from '@/services'
 
 export default {
   name: 'signup',
@@ -69,7 +70,7 @@ export default {
            branch_office_city: '',
            institution_adress: '',
            institution_wh: '',
-          // kriviUser: '',
+
            store
        }
    },
@@ -79,56 +80,29 @@ export default {
         }
     },
   methods: {
-   saveInstitution(){// 1. Sprema novu instituciju, ako vec postoji provjerava podatke
-            let user = firebase.auth().currentUser;
-            firebase
-            .firestore()
-            .collection('INSTITUTIONS')
-            .doc(this.institution_name) //Otvara lokaciju u firestoreu gdje ce se odviti spremanje novih info za tu inst
-            .set({
-                Name : this.institution_name,
-                InstitutionBranchCity : this.branch_office_city,
-                InstitutionAdress : this.institution_adress,
-                InstitutionWH: this.institution_wh,
-                AuthorizedAdmins: firebase.firestore.FieldValue.arrayUnion(user.uid)
-                },{merge:true})
-                .then(() =>{
-                    alert(`Institution ${this.institution_name} added`)
-            })
-            .catch((error) =>{
-              console.log("Error in saving product", error)
-            });
-     
+    async signup() {
+      let newInstitution = {
+        institution_name: this.institution_name,
+        institution_adress: this.institution_adress,
+        institution_wh: this.institution_wh,
+        branch_office_city: this.branch_office_city
+      }
 
-   },
-   signup() {
-        console.log('logging in user -> ' + this.email)
+      Institutions.create(newInstitution)
+      
+      let newUser = {
+        fullname: this.fullname,
+        email: this.email,
+        password: this.password,
+        institution_name: this.institution_name
+      }
 
-        firebase.auth()
-           .createUserWithEmailAndPassword(this.email, this.password)
-           .then(cred => {
-               firebase.firestore().collection('ADMIN-USERS').doc(cred.user.uid).set({ //uzimamo podatke s .get
-               // and we add to the database additional requested details
-               FullName: this.fullname,
-               Email : this.email,
-               InstitutionName : this.institution_name,
-               InstitutionBranchCity : this.branch_office_city,
-               Password : this.password,
-               TypeOfUser : 'Admin'
-               // console.log('Uspješna Registracija');
-                })
-               console.log('Uspješna prijava');
-               this.saveInstitution();
-              //  alert('Uspjesno stvorena institucija')
-               this.$router.replace({name: "main-admin"})
-           })
-	        .catch(function(error) {
-               console.error('greska', error);
-               //this.kriviUser=true;
-           })
-        //return kriviUser;
-        
-   }
+      Auth.register(newUser)
+        .then(() => {
+          this.$router.replace({ name: 'login' })
+        })
+
+    },
   }
 }
 </script>
