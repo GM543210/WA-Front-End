@@ -3,7 +3,7 @@
 
     <div class="col">
                 <img class="resize" src="@/assets/institution.png">
-                <span class="button" @click="onInstitutionSelected()">{{ institution.Caption }}</span>
+                <span class="button" @click="onInstitutionSelected()">{{ institution.institution_name }}</span>
         </div>
 
 
@@ -18,8 +18,6 @@ export default {
     methods: {
         onInstitutionSelected() { // unknown method god knows what this does
             this.$emit('institution-selected', this.institution);
-            alert('AAAAAA')
-            alert(this.institution.Caption)
             store.selectedInstitution= this.institution;
             this.$router.push({name: "enter-q"});
         },
