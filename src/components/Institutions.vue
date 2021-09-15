@@ -27,11 +27,6 @@ export default {
 </script>
 
 <style>
-
-figure{
-    display:inline;
-}
-
 .institutions {
     vertical-align: top;
     /* display: inline-block; */

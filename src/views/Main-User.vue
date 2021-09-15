@@ -26,6 +26,7 @@ border-radius: 25px;
 margin-left:25%;
 border-color: #5396E9;
 border-width: 2px;
+margin-bottom:12%;
 }
 
 .prvi {
