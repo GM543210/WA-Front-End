@@ -17,8 +17,8 @@
 
       <div class="option-wrapper col-sm-6">
         <img class ="hp-icon" src="@/assets/zatvori-salter.png">
-        <strong v-if="windowOpen==true" class="button">CLOSE WINDOW</strong>
-        <strong v-if="windowOpen==false" class="button">OPEN WINDOW</strong>
+        <strong class="button">CLOSE WINDOW</strong>
+        <!--<strong v-if="windowOpen==false" class="button">OPEN WINDOW</strong>-->
       </div>
 
     </div>
