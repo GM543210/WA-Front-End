@@ -32,7 +32,9 @@
 /* .main {
   margin-top: 3%;
 } */
-
+.container{
+margin-left:-5%
+}
 .row {
   margin-left: 10%;
 }

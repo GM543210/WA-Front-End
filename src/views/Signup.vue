@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>This is a signup page</h1>
     <div class="container">
+      <h1 class="headline">Register into your working institution</h1>
       <div class="row mt-5">
         <div class="col-sm">
         </div>
@@ -40,7 +40,7 @@
               <label for="institutionWorkingHours">Institution working hours</label>
               <input type="text" v-model="institution_wh" class="form-control" id="institutionWorkingHours" placeholder="9 AM - 15 PM">
             </div>
-            <button type="button" class="btn btn-primary mt-5" @click="signup">Submit</button>
+            <button type="button" class="btn btn-primary mt-3 button" @click="signup">Submit</button>
           </form>
         </div>
         <div class="col-sm">
@@ -50,6 +50,22 @@
 
   </div>
 </template>
+
+<style scoped>
+.container{
+  margin-top:2rem
+}
+
+.headline{
+ text-align:center;
+ color:#5396E9;
+}
+
+.button{
+  background-color:#5396E9;
+  margin-bottom:20%
+}
+</style>
 
 <script>
 import { firebase } from '@/firebase';

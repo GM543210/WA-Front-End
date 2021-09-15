@@ -2,13 +2,12 @@
 <div>
   <Header />
 
-<input class="search" type="text" placeholder="Pretraži ustanovu...">
+  <input class="search" type="text" placeholder="Pretraži ustanovu...">
 
-<div class="row ustanove">
-  <InstitutionComp v-for="institution in INST" :key="institution._id" :institution="institution" />
-</div>
+  <div class="row ustanove">
+    <InstitutionComp v-for="institution in INST" :key="institution._id" :institution="institution" />
+  </div>
 
-<Footer />
 </div>
 </template>
 
@@ -19,9 +18,14 @@
 }
 
 .search {
+margin-top:0.5rem;
+padding:0.2rem;
 text-align: center;
-width: 100%;
+width: 50%;
 border-radius: 25px;
+margin-left:25%;
+border-color: #5396E9;
+border-width: 2px;
 }
 
 .prvi {
@@ -35,7 +39,7 @@ border-radius: 25px;
 }
 
 .button {
-  background-color: #5396E9; /* Green */
+  background-color: #5396E9;
   width: 100px;
   border-radius: 25px;
   color: white;
