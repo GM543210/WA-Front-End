@@ -27,7 +27,7 @@
         <div class="option-wrapper col-sm-3">
           <p class="normal-text">Next in Line</p>
           <div v-if="total>0" class="counter">
-            <h3 class="header-3">{{next}}</h3>
+            <h3 class="header-3">#{{next}}</h3>
           </div>
             <h3 v-if="total<=0" class="header-3">{{next}}</h3>
 
@@ -79,7 +79,7 @@
 }
 
 .button2 {
-  margin-top: 60px;
+  margin-top: 70px;
   width: 199px;
   color:  #5396E9;
   padding: 5px 15px;

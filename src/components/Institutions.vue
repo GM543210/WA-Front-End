@@ -27,11 +27,6 @@ export default {
 </script>
 
 <style>
-
-figure{
-    display:inline;
-}
-
 .institutions {
     vertical-align: top;
     /* display: inline-block; */
@@ -41,12 +36,12 @@ figure{
 
 }
 .resize {
-    width: 20%;
+    width: 50%;
     /* display: inline; */
 }
 
 .caption {
-   position: absolute;
+   position: relative;
    text-align: center;
    /* display: block; */
     margin-top: 2px;
@@ -67,9 +62,9 @@ figure{
   text-align: center;
   display: block;
   font-size: 15px;
-  position: absolute;
+  position: relative;
+  margin:auto; 
   margin-top: 15px;
-  left:28%;
 }
 
 </style>

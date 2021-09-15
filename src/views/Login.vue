@@ -1,7 +1,8 @@
 <template>
   <div>
-    <h1>This is a login page for Admin</h1>
+   <!--<h1>This is a login page for Admin</h1>-->
     <div class="container">
+      <h1 class="headline">Login for our Admins</h1>
       <div class="row">
         <div class="col-sm">
         </div>
@@ -16,8 +17,8 @@
               <label for="exampleInputPassword1" >Password</label>
               <input type="password" v-model="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
             </div>
-            <div><strong>No account? Register <router-link to="/signup">here.</router-link></strong></div>
-            <button type="button" class="btn btn-primary mt-5"  @click="login">Submit</button>
+            <div><strong>No account? Register <router-link class="here" to="/signup">here.</router-link></strong></div>
+            <button type="button" class="btn btn-primary mt-5 button"  @click="login">Submit</button>
           </form>
         </div>
         <div class="col-sm">
@@ -27,6 +28,26 @@
 
   </div>
 </template>
+
+<style scoped>
+.container{
+  margin-top:10%
+}
+
+.headline{
+ text-align:center;
+ padding-bottom:2rem;
+ color:#5396E9;
+}
+
+.button{
+  background-color:#5396E9;
+}
+
+.here{
+  color:#5396E9;
+}
+</style>
 
 <script>
 import { firebase } from '@/firebase';

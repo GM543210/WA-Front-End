@@ -7,18 +7,18 @@
       <div class="row">
 
         <div class="option-wrapper col-sm-6">
-
+          <p class="normal-text"><strong>Currently being served:</strong></p>
           <div class="counter">
-            <h3 class="header-3">{{ currentNum }}</h3>
+            <h3 class="header-3">#{{ currentNum }}</h3>
           </div>
           <p class="normal-text">You will get served in: ~{{ (queueState-1) * 5 }}min</p>
 
         </div>
 
         <div class="option-wrapper col-sm-6">
-
+          <p class="normal-text"><strong>Your number:</strong></p>
           <div class="counter">
-            <h3 class="header-3">{{ store.queuePosition }}</h3>
+            <h3 class="header-3">#{{ store.queuePosition }}</h3>
           </div>
           <router-link class="button" to="/left-q">LEAVE</router-link>
 
@@ -32,6 +32,9 @@
 </template>
 
 <style scoped>
+.container{
+margin-left:-5%
+}
 
 .main-header {
   color:#5396E9;
@@ -90,6 +93,7 @@
   color:#5396E9;
   font-size: 1.8vw;
   margin-left: 10%;
+  white-space: nowrap;
 }
 
 </style>

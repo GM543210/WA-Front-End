@@ -73,7 +73,7 @@
 
 
 .button2 {
-  margin-top: 65px;
+  margin-top: 70px;
   width: 199px;
   height: 40px;
   color:  #5396E9;
@@ -156,7 +156,7 @@ export default {
       number_of_windows: '',
       temp_number_of_windows: '',
       old_avgWait:'',
-      avgWait:'',
+      avgWait:'10m',
       temp_avgWait:'',
       selectedWindow: {
          'Caption': "",
