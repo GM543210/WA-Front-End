@@ -6,8 +6,14 @@
 
   <div class="row ustanove">
     <InstitutionComp v-for="institution in INST" :key="institution._id" :institution="institution" />
+    <InstitutionComp v-for="institution in tempInstList" :key="institution._id" :institution="institution" />
   </div>
 
+<!-- 
+    <div class="row ustanove">
+    <InstitutionComp v-for="institution in INST" :key="institution._id" :institution="institution" />
+  </div>
+-->
 </div>
 </template>
 
@@ -61,7 +67,9 @@ import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 import InstitutionComp from '@/components/Institutions.vue';
 import store from '@/store';
-import { Institutions } from '@/services'
+import { Institutions } from '@/services';
+import lodash from 'lodash';
+
 
 export default {
   name: 'main-user',
@@ -86,12 +94,24 @@ export default {
                 'City': ""
             },
             INST:[],
+            tempInstList:[],
+            NumOfInst:'',
             store
             
       }
   },
+  computed: {
+    figureRows(){
+      if(this.NumOfInst > 5){
+        alert('Alo')
+        //this.pushToNewRow()
+      }
+    }
+  },
   mounted(){
     this.getInstitutions();
+    this.getInstitutionsNumber();
+    this.pushToNewRow()
   },
   methods:{
     async getInstitutions() { //sluzit ce za Listing Ustanova/Institucija
@@ -100,6 +120,23 @@ export default {
                     this.INST = res.data
                   })
     },
+    async getInstitutionsNumber(){
+      Institutions.getAllNum()
+                  .then((res)=>{
+                    this.NumOfInst=res.data
+                  })
+    },
+    pushToNewRow(){
+      if(this.NumOfInst > 5){
+        for(let i=5;i>this.NumOfInst;i++){
+          this.tempInstList[i] = INST[i]
+          alert('Alo')
+        }
+      }
+    }
+    //getInstLength(){
+    //  alert(this.Institutions);
+    //},
   }
 }
 </script>

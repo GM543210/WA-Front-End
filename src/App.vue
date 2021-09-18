@@ -44,11 +44,6 @@ export default {
     }
   }
 }
-// .container{
-//   padding-right:0px;
-//   margin-left: 0px;
-//   max-width:100%;
-// }
 
 // .main-ui{
 //   margin-top:10%;

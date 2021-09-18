@@ -156,7 +156,7 @@ export default {
       number_of_windows: '',
       temp_number_of_windows: '',
       old_avgWait:'',
-      avgWait:'10m',
+      avgWait:'',
       temp_avgWait:'',
       selectedWindow: {
          'Caption': "",
@@ -373,6 +373,7 @@ export default {
                       this.institution_wh = res.data.institution_wh
                       this.institution_adress = res.data.institution_adress
                       this.branch_office_city = res.data.branch_office_city
+                      this.avgWait = res.data.avgWait
                     })
       },
 
@@ -382,7 +383,8 @@ export default {
           institution_name: this.institution_name,
           institution_wh: this.institution_wh,
           institution_adress: this.institution_adress,
-          branch_office_city: this.branch_office_city
+          branch_office_city: this.branch_office_city,
+          avgWait: this.avgWait
         }
 
         Institutions.update(inst)

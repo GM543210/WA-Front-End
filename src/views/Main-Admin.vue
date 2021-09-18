@@ -1,6 +1,6 @@
 <template>
  <div><Header />
-  <H1 class="main-header">{{ store.institution_name }}</H1>
+  <H1 class="main-header">{{ store.institution_name }} ({{store.branch_office_city}})</H1>
 
   <div class="container main">
 
@@ -10,7 +10,7 @@
     </div> -->
     <div class="row">
       <div class="option-wrapper col-sm-6">
-          <img class ="hp-icon" src="@/assets/upravljaj-redom.png">
+          <img class ="hp-icon" src="@/assets/window-management.png">
         <!-- <router-link to="/manage-window"> -->
         <strong class="button" @click="getToWindow">MANAGE WINDOW</strong>
           <!-- <strong v-if="windowOpen==true" class="button" @click="getToWindow">MANAGE WINDOW</strong>
@@ -34,9 +34,9 @@
 
 <style scoped>
 .main {
-  margin-top: 19%;
+  margin-top: 12%;
 }
-
+ 
 .row {
   margin-left: 10%;
 }

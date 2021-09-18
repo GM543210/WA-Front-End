@@ -1,6 +1,6 @@
 <template>
     <div id="app" style="width: 100%;">
-
+      
     <nav class="navbar navbar-expand-lg navbar-light navbar-custom">
       <router-link class="navbar-brand" to="/">REDOMAT <em>exQs-Me</em></router-link>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -29,10 +29,17 @@
 </template>
 
 <style lang='scss'>
+// body{
+//    margin: 0% -20%; 
+// }
 #app.span {
   color: white;
 }
-
+.container-header{
+//   padding-right:0px;
+//   margin-left: 0px;
+   max-width:100%;
+ }
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   text-align: center;

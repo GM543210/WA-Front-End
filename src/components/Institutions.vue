@@ -2,7 +2,7 @@
 
 
     <div class="col">
-                <img class="resize" src="@/assets/institution.png">
+                <img class="resize" src="@/assets/institution-placeholder.png">
                 <span class="button" @click="onInstitutionSelected()">{{ institution.institution_name }}</span>
         </div>
 
@@ -12,6 +12,7 @@
 <script>
 import { firebase } from '@/firebase';
 import store from '@/store';
+import lodash from 'lodash';
 export default {
     name: 'Institutions',
     props: ['institution',],
@@ -36,7 +37,7 @@ export default {
 
 }
 .resize {
-    width: 50%;
+    width: 60%;
     /* display: inline; */
 }
 
