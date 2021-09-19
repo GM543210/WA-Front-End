@@ -4,16 +4,13 @@
 
   <input class="search" type="text" placeholder="Pretraži ustanovu...">
 
-  <div class="row ustanove">
+  <div class="row ustanove" v-if="NumOfInst>0">
     <InstitutionComp v-for="institution in INST" :key="institution._id" :institution="institution" />
-    <InstitutionComp v-for="institution in tempInstList" :key="institution._id" :institution="institution" />
+    <!-- <br v-if="tempInstList.index % 5 === 0"> -->
   </div>
-
-<!-- 
-    <div class="row ustanove">
-    <InstitutionComp v-for="institution in INST" :key="institution._id" :institution="institution" />
-  </div>
--->
+  <!-- <div class="row ustanove" v-if="NumOfInst>5">
+    <InstitutionComp v-for="institution in tempInstList2" :key="institution._id" :institution="institution" />
+  </div> -->
 </div>
 </template>
 
@@ -24,15 +21,15 @@
 }
 
 .search {
-margin-top:0.5rem;
-padding:0.2rem;
+margin-top:1rem;
+padding:0.5rem;
 text-align: center;
 width: 50%;
 border-radius: 25px;
 margin-left:25%;
 border-color: #5396E9;
-border-width: 2px;
-margin-bottom:12%;
+border-width: 6px;
+border-style:solid;
 }
 
 .prvi {
@@ -94,24 +91,15 @@ export default {
                 'City': ""
             },
             INST:[],
-            tempInstList:[],
             NumOfInst:'',
             store
             
       }
   },
-  computed: {
-    figureRows(){
-      if(this.NumOfInst > 5){
-        alert('Alo')
-        //this.pushToNewRow()
-      }
-    }
-  },
   mounted(){
     this.getInstitutions();
     this.getInstitutionsNumber();
-    this.pushToNewRow()
+    //this.pushToNewRow();
   },
   methods:{
     async getInstitutions() { //sluzit ce za Listing Ustanova/Institucija
@@ -127,12 +115,7 @@ export default {
                   })
     },
     pushToNewRow(){
-      if(this.NumOfInst > 5){
-        for(let i=5;i>this.NumOfInst;i++){
-          this.tempInstList[i] = INST[i]
-          alert('Alo')
-        }
-      }
+      
     }
     //getInstLength(){
     //  alert(this.Institutions);
