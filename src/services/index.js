@@ -34,7 +34,8 @@ let Institutions = {
             institution_name: data.institution_name,
             institution_adress: data.institution_adress,
             institution_wh: data.institution_wh,
-            branch_office_city: data.branch_office_city
+            branch_office_city: data.branch_office_city,
+            avgWait: data.avgWait
         }
 
         return beService.post('/institutions/create', inst)
@@ -42,6 +43,10 @@ let Institutions = {
 
     async getAll() {
         return beService.get('/institutions/get')
+    },
+
+    async getAllNum(){
+        return beService.get('/institutions/size')
     },
 
     async getByName(data) {
@@ -54,7 +59,8 @@ let Institutions = {
             institution_name: data.institution_name,
             institution_adress: data.institution_adress,
             institution_wh: data.institution_wh,
-            branch_office_city: data.branch_office_city
+            branch_office_city: data.branch_office_city,
+            avgWait: data.avgWait
         }
 
         return beService.post('/institutions/update', inst)

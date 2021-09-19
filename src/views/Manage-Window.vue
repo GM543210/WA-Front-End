@@ -1,12 +1,12 @@
 <template>
  <div><Header />
 
-  <H1 class="main-header">{{ store.institution_name }}</H1>
-  <div class="container" v-bind:style="[windowOpen ? {'margin-top': '3%'}:{'margin-top': '3%'}]">
-    <div class="roundBack col-sm-6">
+  <H1 class="main-header">{{ store.institution_name }} ({{store.branch_office_city}})</H1>
+  <div class="container" v-bind:style="[windowOpen ? {'margin-top': '12%'}:{'margin-top': '12%'}]">
+    <!--<div class="roundBack col-sm-6">
       <img class ="back-icon" src="@/assets/admin-message.png">
       <router-link to="/main-admin"><strong class="buttonBack">&#60; BACK</strong></router-link>
-    </div>
+    </div> -->
     <div class="row">
         <div class="option-wrapper col-sm-6">
           <img class ="hp-icon" src="@/assets/upravljaj-redom.png">
@@ -16,8 +16,9 @@
         </div>
 
       <div class="option-wrapper col-sm-6">
+        <!--<img class ="hp-icon transparent" src="@/assets/zatvori-salter.png"> -->
         <img class ="hp-icon" src="@/assets/zatvori-salter.png">
-        <strong class="button">CLOSE WINDOW</strong>
+        <router-link to="/main-admin"><strong class="button">LEAVE WINDOW</strong></router-link>
         <!--<strong v-if="windowOpen==false" class="button">OPEN WINDOW</strong>-->
       </div>
 
@@ -55,12 +56,11 @@ margin-left:-5%
   margin-top: 20%;
 
 }
-
-/* 
+/*
 .transparent {
   opacity:20%;
-} */
-
+}
+*/
 .button {
   background-color: #5396E9;
   width: 200px;
@@ -75,7 +75,7 @@ margin-left:-5%
   margin-top: 15px;
 }
 
-.buttonBack {
+.buttonBack { /*Old button to go back - style */
   background-color: white;
   width: 100px;
   border-radius: 25px;
@@ -91,13 +91,22 @@ margin-left:-5%
 
 }
 
-.roundBack {
+.roundBack { /*Old circle for go back button - style */
     top:180px;
     left:-100px;
     border-radius: 50%;
     border: 4px solid #5396E9;
     width: 100px;
     height: 100px;
+}
+
+.roundBackNEW { /*Old circle for go back button - style */
+    /*top:180px;*/
+    /*left:-100px;*/
+    border-radius: 50%;
+    border: 4px solid #5396E9;
+    width: 50%;
+    /*height: 100px;*/
 }
 
 .main-header {
@@ -124,7 +133,7 @@ export default {
   data(){
     return {
       currentWindowName:'',
-      windowOpen: '',
+      windowOpen: true,
       store
       // styleObject: {
       // color: 'red',

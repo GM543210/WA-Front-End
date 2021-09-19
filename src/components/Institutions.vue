@@ -1,10 +1,10 @@
 <template>
 
 
-    <div class="col">
-                <img class="resize" src="@/assets/institution.png">
+    <div class="institution-listing">
+                <img class="resize" src="@/assets/institution-placeholder.png">
                 <span class="button" @click="onInstitutionSelected()">{{ institution.institution_name }}</span>
-        </div>
+    </div>
 
 
 </template>
@@ -12,6 +12,7 @@
 <script>
 import { firebase } from '@/firebase';
 import store from '@/store';
+import lodash from 'lodash';
 export default {
     name: 'Institutions',
     props: ['institution',],
@@ -20,6 +21,14 @@ export default {
             this.$emit('institution-selected', this.institution);
             store.selectedInstitution= this.institution;
             this.$router.push({name: "enter-q"});
+        },
+        setIdx(){
+            /* for svaki inst iz storea, chekiraj ako ima isto ime ko ova inst - ako ima onda mu dodjeli index i 
+            provjeri ako je taj index djeljiv s 5. 
+            ispod div-a cemo imat br koji reagira na v-if od computed propertya koji zove funkciju koja
+
+
+            odnosno u main user-u u break stavimo v-if koji reagira na to dal je index jednak brojevima djeljivim s 5 i 5 br nakon njega */
         },
     },
 };
@@ -35,8 +44,11 @@ export default {
     display: inline; 
 
 }
+.institution-listing{
+    margin-bottom:10%
+}
 .resize {
-    width: 50%;
+    width: 60%;
     /* display: inline; */
 }
 

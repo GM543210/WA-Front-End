@@ -4,10 +4,13 @@
 
   <input class="search" type="text" placeholder="Pretraži ustanovu...">
 
-  <div class="row ustanove">
+  <div class="row ustanove" v-if="NumOfInst>0">
     <InstitutionComp v-for="institution in INST" :key="institution._id" :institution="institution" />
+    <!-- <br v-if="tempInstList.index % 5 === 0"> -->
   </div>
-
+  <!-- <div class="row ustanove" v-if="NumOfInst>5">
+    <InstitutionComp v-for="institution in tempInstList2" :key="institution._id" :institution="institution" />
+  </div> -->
 </div>
 </template>
 
@@ -18,15 +21,15 @@
 }
 
 .search {
-margin-top:0.5rem;
-padding:0.2rem;
+margin-top:1rem;
+padding:0.5rem;
 text-align: center;
 width: 50%;
 border-radius: 25px;
 margin-left:25%;
 border-color: #5396E9;
-border-width: 2px;
-margin-bottom:12%;
+border-width: 6px;
+border-style:solid;
 }
 
 .prvi {
@@ -61,7 +64,9 @@ import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 import InstitutionComp from '@/components/Institutions.vue';
 import store from '@/store';
-import { Institutions } from '@/services'
+import { Institutions } from '@/services';
+import lodash from 'lodash';
+
 
 export default {
   name: 'main-user',
@@ -86,12 +91,15 @@ export default {
                 'City': ""
             },
             INST:[],
+            NumOfInst:'',
             store
             
       }
   },
   mounted(){
     this.getInstitutions();
+    this.getInstitutionsNumber();
+    //this.pushToNewRow();
   },
   methods:{
     async getInstitutions() { //sluzit ce za Listing Ustanova/Institucija
@@ -100,6 +108,18 @@ export default {
                     this.INST = res.data
                   })
     },
+    async getInstitutionsNumber(){
+      Institutions.getAllNum()
+                  .then((res)=>{
+                    this.NumOfInst=res.data
+                  })
+    },
+    pushToNewRow(){
+      
+    }
+    //getInstLength(){
+    //  alert(this.Institutions);
+    //},
   }
 }
 </script>
