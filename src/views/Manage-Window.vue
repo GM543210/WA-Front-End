@@ -122,6 +122,7 @@ import Header from '@/components/Header.vue';
 import Footer from '@/components/Footer.vue';
 import Windows from '@/components/Windows.vue';
 import store from '@/store';
+import { Queue } from '@/services'
 
 export default {
   name: 'manage-window',
@@ -143,6 +144,19 @@ export default {
   },
   methods:{
     openQ() {
+     /*  if (store.isFirstBack == true){
+        let inst = {
+        institution_name: store.institution_name
+        }
+        Queue.autoFix(inst) //2. - Next koji ne mijenja "current"
+          .then((res) => {
+            console.log(res)
+            //this.total = res.data.size,
+            store.current = res.data.current
+           // this.next = res.data.next
+            
+          })
+      } */
       this.$router.push({name: "manage-q"})
     }
   //   uniqueID() {
