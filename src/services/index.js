@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 let beService = axios.create({
-    baseURL: 'http://localhost:3000',
+    baseURL: 'https://exqseme.herokuapp.com/', //http://localhost:3000 ili https://exqseme.herokuapp.com/
     timeout: 10000
 })
 
