@@ -18,9 +18,9 @@
           <div class="counter-big">
             <h3 class="header-3-big">#{{current}}</h3>
           </div>
-          <strong v-if="total>0" class="button" @click="getQueueState">NEXT</strong>
+          <strong v-if="total>0" class="button" @click="Next">NEXT</strong>
           <strong v-if="total<=0" class="button transparent">NEXT</strong>
-          <strong class="button2" @click="Back">&#60; BACK TO WINDOW</strong>
+          <router-link to="/manage-window"><strong class="button2">&#60; BACK TO WINDOW</strong></router-link>
 
         </div>
 
@@ -167,7 +167,7 @@ export default {
     }
   },
   methods:{
-    getQueueState() {
+    getQueueState() { //serves as 'Refresh()'
       let inst = {
         institution_name: store.institution_name
       }
@@ -177,15 +177,51 @@ export default {
             console.log(res)
             this.total = res.data.size,
             this.current = res.data.current,
-            this.next = res.data.next
+            this.next = res.data.next 
+            if(this.total==0){
+              store.isFirstQueueCheck = true
+            }
+            if(store.current != this.current){
+              this.current = store.current//pokusavam da nakon prve vrati u current value -1 jer prikazuje krivi 
+              //store.isFirstBack = false
+            }
           })
     },
+    fix(){
+      if(store.isFirstQueueCheck == true){
+        let inst = {
+        institution_name: store.institution_name
+        }
 
-    Back() {
-      this.$router.push({name: "manage-window"});
+        Queue.clickNext(inst) 
+          .then((res) => {
+            console.log(res)
+            this.total = res.data.size
+            this.current = res.data.current,
+            this.next = res.data.next
+
+            store.current=this.current//stavlja current u store da kad odem back pa nazad u queue ne poremeti stvar i digne current za 1
+          })
+          store.isFirstQueueCheck = false
+          //store.isFirstBack = true
+      }
     },
+    /* Back() {
+    }, */
+    Next(){
+      let inst = {
+        institution_name: store.institution_name
+      }
 
-    Next() {
+      Queue.clickNext(inst)
+          .then((res) => {
+            console.log(res)
+            this.total = res.data.size,
+            this.current = res.data.current,
+            this.next = res.data.next
+            store.current=this.current
+            //alert('Uzimam iz backenda i mijenjam current u: '+this.current)
+          })
 
     }
     // uniqueID() {
@@ -299,7 +335,10 @@ export default {
     // }
     // else this.getQData();
     // // this.getQData();
+    
     this.getQueueState()
+    this.fix()
+    //this.getQueueState()
   }
 }
 </script>

@@ -86,6 +86,14 @@ let Queue = {
 
     async getState(data) {
         return beService.get(`/queue/state?institution_name=${data.institution_name}`)
+    },
+
+    async clickNext(data) {
+        return beService.get(`/queue/next?institution_name=${data.institution_name}`)
+    },
+
+    async autoFix(data) {
+        return beService.get(`/queue/fix?institution_name=${data.institution_name}`)
     }
 }
 

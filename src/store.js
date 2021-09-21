@@ -32,6 +32,8 @@ export default {
     authenticated: false,
     // currentUser: null,
     userType: '',
+    isFirstQueueCheck: true,
+    isFirstBack: false,
     //za testiranje
     fullname:'',
     email:'',
@@ -41,6 +43,7 @@ export default {
     branch_office_city:'',
     institution_adress:'',
     institution_wh:'',
+    current: 0,
     i:0,
     assignedWindow:'',
     assignedWinState: false,
